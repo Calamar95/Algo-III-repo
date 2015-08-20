@@ -1,6 +1,14 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <iostream>
+#include <utility>
+#include <vector>
+#include <string>
+#include <set>
+#include <sstream>
+#include <fstream>
+
 using namespace std;
 
 int conectar(vector<int> v , int cable){
@@ -70,37 +78,44 @@ return res;
 
 int main(){
 
+	ofstream out;
+	out.open("resultado.out");
+    ifstream in("Tp1Ej1.in");
 
+    while (in.good()){
 
+    	vector<int> vec;
+    	vec.push_back(0);
 
+	    string st;
+	    getline(in,st);
+	    istringstream iss;
+	    iss.str(st);
+	    iss.clear();
 
+	    int a;
+	    iss>>a;
 
+	    
+	    getline(in,st);	    
+	    iss.str(st);
+	    iss.clear();
+	    int b;
+	    
+	    while(iss>>b){
+	    	vec.push_back(b);
+	    }	      
+	    
+	    int f = conectar(vec,a);    
+   		out << f << endl;
+    	
+    }
+    out.close();
 
+    
+   
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /*
 
 
 
