@@ -1,0 +1,21 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Introducci\IeC {\'o}n}{2}
+\contentsline {section}{\numberline {2}Problema 1: \textbf {Tel\IeC {\'e}grafo}}{2}
+\contentsline {subsection}{\numberline {2.1}Idea general del problema}{2}
+\contentsline {subsection}{\numberline {2.2}Pseudoc\IeC {\'o}digo}{2}
+\contentsline {subsection}{\numberline {2.3}Deducci\IeC {\'o}n de la cota de complejidad temporal}{2}
+\contentsline {subsection}{\numberline {2.4}Demostraci\IeC {\'o}n formal}{2}
+\contentsline {subsection}{\numberline {2.5}Experimentaciones}{2}
+\contentsline {section}{\numberline {3}Problema 2: \textbf {A Medias}}{3}
+\contentsline {subsection}{\numberline {3.1}Idea general del problema}{3}
+\contentsline {subsection}{\numberline {3.2}Pseudoc\IeC {\'o}digo}{3}
+\contentsline {subsection}{\numberline {3.3}Deducci\IeC {\'o}n de la cota de complejidad temporal}{3}
+\contentsline {subsection}{\numberline {3.4}Demostraci\IeC {\'o}n formal}{3}
+\contentsline {subsection}{\numberline {3.5}Experimentaciones}{3}
+\contentsline {section}{\numberline {4}Problema 3:\textbf {Girls Scouts}}{4}
+\contentsline {subsection}{\numberline {4.1}Idea general del problema}{4}
+\contentsline {subsection}{\numberline {4.2}Pseudoc\IeC {\'o}digo}{5}
+\contentsline {subsection}{\numberline {4.3}Justificaci\IeC {\'o}n}{6}
+\contentsline {subsection}{\numberline {4.4}Deducci\IeC {\'o}n de la cota de complejidad temporal}{7}
+\contentsline {subsection}{\numberline {4.5}An\IeC {\'a}lisis experimental de la complejidad}{8}
+\contentsline {section}{\numberline {5}C\IeC {\'o}digo}{9}
