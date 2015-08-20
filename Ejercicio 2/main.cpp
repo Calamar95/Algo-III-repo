@@ -2,6 +2,8 @@
 #include <utility>
 #include <vector>
 #include <set>
+#include <sstream>
+#include <fstream>
 using namespace std;
 
 vector<int> medianas(vector<int> a){
@@ -42,6 +44,7 @@ vector<int> medianas(vector<int> a){
     return res;
 }
 int main() {
+    /*
     vector<int> a;
     a.push_back(2);
     a.push_back(3);
@@ -78,6 +81,29 @@ int main() {
     res = medianas(d);
     for(int i = 0; i<res.size(); i++){
         cout << res[i] << endl;
+    }*/
+
+    ofstream out;
+    out.open("resultado.out");
+    ifstream in("Tp1Ej2.in");
+    while (in.good()){
+        vector<int> vec;
+        string st;
+        getline(in, st);
+        istringstream iss;
+        iss.str(st);
+        iss.clear();
+        int a;
+        while(iss>>a){
+            vec.push_back(a);
+        }
+        vector<int> res = medianas(vec);
+        for(int i = 0; i<res.size(); i++){
+            out << res[i] << " ";
+        }
+        out << endl;
     }
+    out.close();
+
     return 0;
 }
