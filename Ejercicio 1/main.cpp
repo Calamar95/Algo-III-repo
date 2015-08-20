@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 using namespace std;
 
 int conectar(vector<int> v , int cable){
@@ -23,38 +24,89 @@ while(cable>0 && v[end] != v.back()){
 
 }
 
-cout << res <<endl;
-
-
 if (res == 1){
 	res = 0;
 }
-
 
 if (cable<0){
 	cable = aux;
 }
 
 while (v[end] != v.back()){
-	int conectadas = res - 1; //OJO
-	cable = cable + (v[start+1]-v[start]);
-	//cout << cable << endl;
-	start++;
+	
+	int conectadas;
+	if (res==0) {
+		conectadas = 0;
+		start++;
+		end++;
+	}else{
+		conectadas = res - 1;
+		cable = cable + (v[start+1]-v[start]);
+		start++;
+	}
+
 	while (cable >= 0 && v[end]!= v.back()){
+		
 		cable = cable - (v[end+1]- v[end]);
 		end++;
 		if (cable>= 0){
 			conectadas++;
 		}
 	}
+
 	if (conectadas>res){
 		res = conectadas;
 	}
+
+
+}
+
+if (res == 1){
+	res = 2;
 }
 return res;
 }
 
+
 int main(){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	vector<int> a;
 
@@ -62,9 +114,9 @@ int main(){
 	a.push_back(6);
 	a.push_back(8);
 	a.push_back(12);
-	a.push_back(15);
+	a.push_back(15);	
 	int a1 = conectar(a,6);
-
+	cout << "total " << a1 << endl;
 
 	vector<int> b;
 	b.push_back(0);
@@ -80,6 +132,7 @@ int main(){
 	b.push_back(89);
 	b.push_back(99);
 	int b1 = conectar(b,35);
+	cout << "total " <<  b1 << endl;
 
 	
 	vector<int> c;
@@ -95,6 +148,7 @@ int main(){
 	c.push_back(356);
 	c.push_back(387);
 	int c1 = conectar(c,100);
+	cout << "total " << c1 << endl;
 
 	vector<int> d;
 	d.push_back(0);
@@ -112,7 +166,8 @@ int main(){
 	d.push_back(78);
 	d.push_back(82);
 	int d1 = conectar(d,90);
-
+	cout <<  "total " << d1 << endl;
+ 
 	
 	vector<int> e;
 	e.push_back(0);
@@ -122,6 +177,7 @@ int main(){
 	e.push_back(26);
 	e.push_back(35);
 	int e1 = conectar(e,4);
+	cout << "total " << e1 << endl;
 
 
 	vector<int> f;
@@ -132,8 +188,9 @@ int main(){
 	f.push_back(26);
 	f.push_back(35);
 	int f1 = conectar(f,5);
+	cout << "total " << f1 << endl;
 
-	cout << "aca" << endl;
+	
 
 	vector<int> g;
 	g.push_back(0);
@@ -143,6 +200,7 @@ int main(){
 	g.push_back(27);
 	g.push_back(33);
 	int g1 = conectar(g,5);
+	cout << "total " << g1 << endl;
 
 	vector<int> h;
 	h.push_back(0);
@@ -151,7 +209,8 @@ int main(){
 	h.push_back(8);
 	h.push_back(14);
 	h.push_back(18);
-	int h1 = conectar(h,8);
+	int h1 = conectar(h,8);	
+	cout <<  "total " << h1 << endl;
 
 	vector<int> i;
 	i.push_back(0);
@@ -161,6 +220,8 @@ int main(){
 	i.push_back(15);
 	i.push_back(19);
 	int i1 = conectar(i,8);
+	cout << "total " << i1 << endl;
+
 
 /*
 
@@ -187,16 +248,6 @@ int main(){
 
 	int d1 = conectar(d,90);
 	
-*/	
-	cout << a1 << endl;
-	cout << b1 << endl;
-	cout << c1 << endl;
-	cout << d1 << endl;
-	cout << e1 << endl;
-	cout << f1 << endl;
-	cout << g1 << endl;
-	cout << h1 << endl;
-	cout << i1 << endl;
-
+*/
 	return 0;
 }
