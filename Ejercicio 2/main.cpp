@@ -44,45 +44,7 @@ vector<int> medianas(vector<int> a){
     return res;
 }
 int main() {
-    /*
-    vector<int> a;
-    a.push_back(2);
-    a.push_back(3);
-    a.push_back(4);
-    a.push_back(1);
-    a.push_back(2);
-
-    vector<int> b;
-    b.push_back(2);
-    b.push_back(7);
-    b.push_back(2);
-    b.push_back(8);
-    b.push_back(4);
-    b.push_back(9);
-    b.push_back(1);
-    b.push_back(6);
-    b.push_back(5);
-
-
-    vector<int> c;
-    c.push_back(1);
-    c.push_back(87);
-    c.push_back(4);
-
-    vector<int> d;
-    d.push_back(4);
-    d.push_back(0);
-    d.push_back(32);
-    d.push_back(6);
-    d.push_back(8);
-    d.push_back(10);
-
-    vector<int> res;
-    res = medianas(d);
-    for(int i = 0; i<res.size(); i++){
-        cout << res[i] << endl;
-    }*/
-
+    
     ofstream out;
     out.open("resultado.out");
     ifstream in("Tp1Ej2.in");
