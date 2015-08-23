@@ -14,7 +14,6 @@
 using namespace std;
 
 int conectar(vector<int> v , int longCable) {
-	clock_t startTime = clock();  //empezamos a medir el tiempo
 
 	int resTemp = 1;
 	int start = 0;
@@ -74,7 +73,7 @@ int conectar(vector<int> v , int longCable) {
 	}
 
 	//imprimimos por pantalla el tiempo transcurrido para cada iteracion de 'conectar'.
-	printf("Tiempo transcurrido: %f \n", ((double)clock() - startTime) / CLOCKS_PER_SEC);
+	//printf("Tiempo en segundos transcurrido de un ramal: %f \n", ((double)clock() - startTime) / CLOCKS_PER_SEC);
 
 	return resTemp;
 }
@@ -86,8 +85,10 @@ int main() {
 	out.open("resultado.out");
     ifstream in("Tp1Ej1.in");
 
-    while (in.good()) {
+    int iteraciones = 0;
+    double tiempo_promedio = 0;
 
+    while (in.good()) {
     	vector<int> vec;
     	vec.push_back(0);
 
@@ -110,9 +111,24 @@ int main() {
 	    	vec.push_back(b);
 	    }
 
-	    int f = conectar(vec,a);    
-   		out << f << endl;
-    	
+		while (iteraciones <= 100) {
+			clock_t startTime = clock();  //empezamos a medir el tiempo
+
+			int f = conectar(vec,a); //f es la cantidad máxima de ciudades conectadas de un ramal.
+
+			tiempo_promedio += ((double)clock() - startTime) / (CLOCKS_PER_SEC / 1000); //primero sumo los tiempos de las 100 iteraciones.
+
+			if(iteraciones == 0){
+				out << f << endl; //en el archivo de salida guardo una vez la cantidad maxima de ciudades conectadas del ramal.
+			}
+			iteraciones++;
+	    }
+
+	    tiempo_promedio = tiempo_promedio/100.0; //calculo el promedio del tiempo de las 100 iteraciones.
+	    printf("Tiempo en milisegundos de un ramal: %f \n", tiempo_promedio);
+
+	    tiempo_promedio = 0.0;
+	    iteraciones = 0;
     }
 
     out.close();
