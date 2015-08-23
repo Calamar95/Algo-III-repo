@@ -6,4 +6,5 @@
 informe.pdf
 *.log
 
-
+# MAC
+.DS_Store

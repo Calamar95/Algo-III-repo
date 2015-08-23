@@ -8,81 +8,85 @@
 #include <set>
 #include <sstream>
 #include <fstream>
+#include <stdio.h>
+#include <time.h>
 
 using namespace std;
 
-int conectar(vector<int> v , int cable){
+int conectar(vector<int> v , int longCable) {
+	clock_t startTime = clock();  //empezamos a medir el tiempo
 
-int res = 1;
-int end = 0;
-int start = 0;
-int aux = 0;
+	int resTemp = 1;
+	int start = 0;
+	int actual = 0;
+	int aux = 0;
 
-while(cable>0 && v[end] != v.back()){
-	aux = cable;
-	if (end != 0){
-		cable = cable -(v[end+1] - v[end]);
-	}else{
-		cable = cable - v[end+1];
-	}
-	end++;
-	if (cable >= 0){
-		res++;
-	}
-
-}
-
-if (res == 1){
-	res = 0;
-}
-
-if (cable<0){
-	cable = aux;
-}
-
-while (v[end] != v.back()){
-	
-	int conectadas;
-	if (res==0) {
-		conectadas = 0;
-		start++;
-		end++;
-	}else{
-		conectadas = res - 1;
-		cable = cable + (v[start+1]-v[start]);
-		start++;
-	}
-
-	while (cable >= 0 && v[end]!= v.back()){
-		
-		cable = cable - (v[end+1]- v[end]);
-		end++;
-		if (cable>= 0){
-			conectadas++;
+	while (longCable > 0 && v[actual] != v.back()) {
+		aux = longCable;
+		if (actual == 0) {
+			longCable = longCable - v[actual+1]; //si comparamos con el primer elemento del vector (el km 0), entonces a longCable le restamos el valor del segundo elemento.
+		} else {
+			longCable = longCable -(v[actual+1] - v[actual]); //si comparamos con otro elemento, a longCable le restamos la diferencia entre dicho elemento y su próximo.
 		}
+
+		if (longCable >= 0) {
+			resTemp++; //actualizamos resTemp solo si longCable sigue siendo positivo.
+		}
+		actual++;
 	}
 
-	if (conectadas>res){
-		res = conectadas;
+	if (resTemp == 1) {
+		resTemp = 0; //si resTemp sigue en 1 como lo definimos, es porque no se conectó ninguna ciudad, entonces lo seteamos en 0.
 	}
 
+	if (longCable < 0) {
+		longCable = aux; //si nos pasamos y longCable queda negativo, volvemos al valor anterior.
+	}
 
+	while (v[actual] != v.back()) { //mientras que el elemento actual no sea el último..
+		int conectadas;
+		if (resTemp == 0) {
+			conectadas = 0; //si no conectamos ninguna ciudad, contectadas será 0, start 1, actual+1
+			start++;
+			actual++;
+		} else {
+			conectadas = resTemp - 1; //si conectamos alguna ciudad, 'conectadas' será la cant de ciudades conectadas - 1.
+			longCable = longCable + (v[start+1]-v[start]);
+			start++;
+		}
+
+		while (longCable >= 0 && v[actual]!= v.back()) {
+			longCable = longCable - (v[actual+1]- v[actual]);
+			actual++;
+			if (longCable >= 0) {
+				conectadas++;
+			}
+		}
+
+		if (conectadas > resTemp) {
+			resTemp = conectadas;
+		}
+
+	}
+
+	if (resTemp == 1) {
+		resTemp = 2;
+	}
+
+	//imprimimos por pantalla el tiempo transcurrido para cada iteracion de 'conectar'.
+	printf("Tiempo transcurrido: %f \n", ((double)clock() - startTime) / CLOCKS_PER_SEC);
+
+	return resTemp;
 }
 
-if (res == 1){
-	res = 2;
-}
-return res;
-}
 
-
-int main(){
+int main() {
 
 	ofstream out;
 	out.open("resultado.out");
     ifstream in("Tp1Ej1.in");
 
-    while (in.good()){
+    while (in.good()) {
 
     	vector<int> vec;
     	vec.push_back(0);
@@ -102,26 +106,18 @@ int main(){
 	    iss.clear();
 	    int b;
 	    
-	    while(iss>>b){
+	    while (iss>>b) {
 	    	vec.push_back(b);
-	    }	      
-	    
+	    }
+
 	    int f = conectar(vec,a);    
    		out << f << endl;
     	
     }
+
     out.close();
 
-    
-   
-
     /*
-
-
-
-
-
-
 
 	vector<int> a;
 
@@ -182,7 +178,6 @@ int main(){
 	d.push_back(82);
 	int d1 = conectar(d,90);
 	cout <<  "total " << d1 << endl;
- 
 	
 	vector<int> e;
 	e.push_back(0);
@@ -194,7 +189,6 @@ int main(){
 	int e1 = conectar(e,4);
 	cout << "total " << e1 << endl;
 
-
 	vector<int> f;
 	f.push_back(0);
 	f.push_back(5);
@@ -204,8 +198,6 @@ int main(){
 	f.push_back(35);
 	int f1 = conectar(f,5);
 	cout << "total " << f1 << endl;
-
-	
 
 	vector<int> g;
 	g.push_back(0);
@@ -236,9 +228,6 @@ int main(){
 	i.push_back(19);
 	int i1 = conectar(i,8);
 	cout << "total " << i1 << endl;
-
-
-/*
 
 	d.push_back(0);
 	d.push_back(7);
