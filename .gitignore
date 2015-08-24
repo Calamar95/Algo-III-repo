@@ -3,7 +3,10 @@
 *.o
 *.toc
 *.aux
+informe/informe.pdf
 informe.pdf
+informe/*.pdf
+*.pdf
 *.log
 
 # MAC
