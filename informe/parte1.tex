@@ -25,7 +25,7 @@ El archivo de salida luego de ejecutarse nuestro algoritmo deberá ser de la sig
 
 Este último archivo indica la cantidad de ciudades que se pueden conectar para cada ramal. En el caso del ramal 1, para el cual se tienen 6km de cable disponibles, y contiene ciudades en los kilómetros: 0 6 8 12 15 vemos que la solución debería ser que se pueden conectar como máximo 3 ciudades, a continuación explicaremos cómo se deduce esto.\\
 
-Si conectamos la capital con la ciudad del kilómetro 6, al tener sólo 6km de cable, nuestra solución sería que pudimos conectar sólo 2 ciudades. Pero como debemos maximizar esta cantidad, podemos ver que si en vez de conectar a la capital con la primer estación del ramal, conectamos la ciudad del kilómetro 6, con su siguiente y con la del kilómetro 12, entonces como entre el kilómetro 6 y el 8 hay una diferencia de 2kms y entre el 8 y el 12 una diferencia de 4kms, vemos que la máxima cantidad de estaciones conectadas con 6km de cable para el ramal 1, es 3. Lo mismo para todos los ramales.\\
+Si conectamos la capital con la ciudad del kilómetro 6, al tener sólo 6km de cable, nuestra solución sería que pudimos conectar sólo 2 ciudades. Pero como debemos maximizar esta cantidad, podemos ver que si en vez de conectar a la capital con la primer estación del ramal, conectamos la ciudad del kilómetro 6, con su siguiente y con la del kilómetro 12, entonces como entre el kilómetro 6 y el 8 hay una diferencia de 2kms y entre el 8 y el 12 una diferencia de 4kms, vemos que la máxima cantidad de estaciones conectadas con 6km de cable para el ramal 1, es 3. La misma lógica se la aplica para los ramales restantes.\\
 
 
 \subsection{Explicación y pseudocódigo}
@@ -34,5 +34,57 @@ Si conectamos la capital con la ciudad del kilómetro 6, al tener sólo 6km de c
 
 \subsection{Deducción de la cota de complejidad temporal}
 
+%----------------------------FALTA!----------------------------
+Nuestro algoritmo, sin importar el archivo de entrada, recorre el vector de kilometrajes de ciudades de cada ramal \textbf{siempre}. Entonces decimos que el mejor caso es igual al peor caso,\textbf{ES CIERTO ESTO??}  por lo tanto vamos a mostrar la implementación de un test generado sin ninguna intencionalidad, pero antes explicaremos detalladamente como fue creado. \\
+
+Implementamos una función que genera números random para el archivo que le vamos a pasar por entrada a nuestro algoritmo con los siguientes criterios:
+\begin{itemize}
+\item Elegimos en este ejemplo que el primer ramal iba a contar con una estación, el segundo con 101, el tercero con 201 y asi sumando de a 100.
+\item Para el valor de la longitud de cable disponible de cada ramal, decidimos que sea un número random entre 1 y la cantidad de estaciones de cada ramal.
+\item Para los kilometrajes de las estaciones tuvimos en cuenta, que estos debían estar ordenados de menor a mayor, sin contener el kilómetro 0. Para definir esto hacemos algo de la pinta:
+
+ciudad = ciudad + (random.randrange(i+1)+1)
+
+random.randrange(i+1) da un número random entre 0 e $i+1$, como inicialmente $i$ es 0 tuvimos que sumarle 1. A su vez a esto lo incrementamos en 1 porque un número random entre 0 e $i+1$ puede llegar a darnos 0, y no queremos que esto pase, ya que el kilómetro 0 no debe figurar en el archivo de entrada.
+
+Por otro lado, al hacer $``$ciudad = ciudad + ...$"$ nos aseguramos que los kilometrajes esten en orden creciente.
+
+\end{itemize}
+
+Podemos ver el código de este test implementado en python acá:
+
+--------------------------------------------------------------------------------\\
+$~~~~~~$file = open('ejemploConNumerosRandom.in', 'w+')\\
+$~~~~~~$file2 = open('ejemploTamCiudades.txt', 'w+')\\
+$~~~~~~$for x in xrange(1,10000, 100):\\
+$~~~~~~~~~~~~$i = 0\\
+$~~~~~~~~~~~~$ciudad = 0\\
+$~~~~~~~~~~~~$file.write(str(random.randrange(x)) + ' \textbackslash n')\\
+$~~~~~~~~~~~~$file2.write(str(x) + ' \textbackslash n')\\
+$~~~~~~~~~~~~$while i $<$ x:\\
+$~~~~~~~~~~~~~~~~~~~~~~~~$ciudad = ciudad + (random.randrange(i+1)+1)\\
+$~~~~~~~~~~~~~~~~~~~~~~~~$file.write(str(ciudad) + ' ')\\
+$~~~~~~~~~~~~~~~~~~~~~~~~$i = i + 1\\
+$~~~~~~~~~~~~$file.write(' \textbackslash n')\\
+$~~~~~~$file2.close()\\
+
+--------------------------------------------------------------------------------\\
+
+Una vez que generamos el archivo del input con dicho test, ejecutamos nuestro algoritmo obteniendo el archivo de salida con la cantidad de ciudades conectadas para cada ramal, e imprimimos por pantalla el tiempo promedio en milisegundos que tardó nuestro algoritmo en calcular la máxima cantidad de estaciones conectadas de cada ramal. ¿Por qué el tiempo promedio? Bueno, al ejecutarlo un par de veces nos dimos cuenta que se obtenían valores parecidos pero no idénticos, entonces decidimos correr el algoritmo una cierta cantidad de iteraciones (en este caso 100), e ir acumulando los tiempos para luego dividir este acumulador por 100 y así obtener un valor promedio de los tiempos en los que se tarda en resolver el problema para cada ramal. \\
+
+Con estos tiempos creamos el gráfico de la figura \ref{ej1-tiempo-vs-cant-ciudades-random} que mostramos a continuación, en el que hacemos una comparación con la gráfica de O(n) y observamos como nuestro algoritmo cumple dicha complejidad.
+
+\textbf{VOY A CAMBIAR ESTE GRAFICO POR UNO PARECIDO, QUE LA LINEA DE O(N) PASE A SER O(N) * UN POQUITO MAS DEL MAXIMO DE LOS TIEMPOS, PARA QUE SE VEA MEJOR Y SE VEA TAMBIEN QUE SIEMPRE ESTA POR DEBAJO ..}
+
+\begin{figure}[H]
+\begin{center}
+
+\minipage{0.8\textwidth}
+  \includegraphics[width=\linewidth]{../graficos/ej1/1erEjTiempoPromedioVsO(n).png}
+  \caption{{\small Comparación con O(n). Dado un archivo de entrada con longitud de cable y kilometrajes de estaciones random.}} \label{ej1-tiempo-vs-cant-ciudades-random}
+\endminipage
+
+\end{center}
+\end{figure}
 \subsection{Demostración formal}
 \subsection{Experimentaciones}
