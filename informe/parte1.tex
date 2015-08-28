@@ -31,10 +31,12 @@ Si conectamos la capital con la ciudad del kilómetro 6, al tener sólo 6km de c
 \subsection{Explicación y pseudocódigo}
 
 
-
 \subsection{Deducción de la cota de complejidad temporal}
 
-%----------------------------FALTA!----------------------------
+Dedujimos que el algoritmo indica cuantas ciudades se pueden conectar, para cada ramal en O(n), siendo n la cantidad de estaciones en cada ramal, ya que..
+
+\textbf{FALTA explicar porque dedujimos q es O(n)}
+
 Nuestro algoritmo, sin importar el archivo de entrada, recorre el vector de kilometrajes de ciudades de cada ramal \textbf{siempre}. Entonces decimos que el mejor caso es igual al peor caso,\textbf{ES CIERTO ESTO??}  por lo tanto vamos a mostrar la implementación de un test generado sin ninguna intencionalidad, pero antes explicaremos detalladamente como fue creado. \\
 
 Implementamos una función que genera números random para el archivo que le vamos a pasar por entrada a nuestro algoritmo con los siguientes criterios:
@@ -73,8 +75,6 @@ $~~~~~~$file2.close()\\
 Una vez que generamos el archivo del input con dicho test, ejecutamos nuestro algoritmo obteniendo el archivo de salida con la cantidad de ciudades conectadas para cada ramal, e imprimimos por pantalla el tiempo promedio en milisegundos que tardó nuestro algoritmo en calcular la máxima cantidad de estaciones conectadas de cada ramal. ¿Por qué el tiempo promedio? Bueno, al ejecutarlo un par de veces nos dimos cuenta que se obtenían valores parecidos pero no idénticos, entonces decidimos correr el algoritmo una cierta cantidad de iteraciones (en este caso 100), e ir acumulando los tiempos para luego dividir este acumulador por 100 y así obtener un valor promedio de los tiempos en los que se tarda en resolver el problema para cada ramal. \\
 
 Con estos tiempos creamos el gráfico de la figura \ref{ej1-tiempo-vs-cant-ciudades-random} que mostramos a continuación, en el que hacemos una comparación con la gráfica de O(n) y observamos como nuestro algoritmo cumple dicha complejidad.
-
-\textbf{VOY A CAMBIAR ESTE GRAFICO POR UNO PARECIDO, QUE LA LINEA DE O(N) PASE A SER O(N) * UN POQUITO MAS DEL MAXIMO DE LOS TIEMPOS, PARA QUE SE VEA MEJOR Y SE VEA TAMBIEN QUE SIEMPRE ESTA POR DEBAJO ..}
 
 \begin{figure}[H]
 \begin{center}
