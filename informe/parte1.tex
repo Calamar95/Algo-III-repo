@@ -30,6 +30,61 @@ Si conectamos la capital con la ciudad del kilómetro 6, al tener sólo 6km de c
 
 \subsection{Explicación y pseudocódigo}
 
+int conectar(vector$<$int$>$ v , int longitud del cable) \{ \\
+$~~~~~~~~~~~~$int resTemp $\leftarrow$ 1 \Ode{1}\\
+$~~~~~~~~~~~~$int start $\leftarrow$ 0 \Ode{1}\\
+$~~~~~~~~~~~~$int actual $\leftarrow$ 0 \Ode{1}\\
+$~~~~~~~~~~~~$int aux $\leftarrow$ 0 \Ode{1}\\
+
+$~~~~~~~~$\While{ (la longitud del cable sea $>$ 0 y v[actual] no sea el ultimo)} \{ \WhileOde{n} \\
+$~~~~~~~~~~~~~~~$aux  $\leftarrow$ longitud del cable \Ode{1}\\
+$~~~~~~~~~~~~~~~$\textbf{si} es el primer elemento del vector (el km 0) \IfOde{1}\\
+$~~~~~~~~~~~~~~~~~~~~$a la longitud del cable le restamos el valor del segundo elemento. \Ode{1}\\
+$~~~~~~~~~~~~~~~$\textbf{si no} es el kilómetro 0\\
+$~~~~~~~~~~~~~~~~~~~~$a la longitud del cable le restamos la diferencia entre dicho elemento y su próximo.\Ode{1}\\
+
+$~~~~~~~~$\}\\
+
+$~~~~~~~~$\textbf{si} la longitud del cable sigue $>$ 0 \\
+$~~~~~~~~~~~~~~~$incrementamos en 1 resTemp\Ode{1}\\
+		
+$~~~~~~~~$incrementamos en 1 actual, siempre.\Ode{1}\\
+
+$~~~~~~~~$\textbf{si} resTemp sigue valiendo 1 \IfOde{1}\\
+$~~~~~~~~~~~~~~~$ seteamos resTemp $\leftarrow$ 0; porque no se conectó ninguna ciudad. \Ode{1}\\
+
+$~~~~~~~~$\textbf{si} nos pasamos y la longitud del cable $<$ 0  \IfOde{1} \\
+$~~~~~~~~~~~~~~~$volvemos al valor anterior: la longitud del cable $\leftarrow$ 'aux' \Ode{1}\\
+
+$~~~~~~~~$\While{la longitud del cable sea $>$ 0 y el elemento actual no sea el último)} \{ \WhileOde{n} \\
+		int conectadas \\
+$~~~~~~~~~~~~~~~$\textbf{si}(resTemp $\leftarrow$0)  \IfOde{1} \\
+$~~~~~~~~~~~~~~~~~~~~$conectadas  $\leftarrow$ 0; \Ode{1}\\
+$~~~~~~~~~~~~~~~~~~~~$start++; \Ode{1}\\
+$~~~~~~~~~~~~~~~$\textbf{si no}
+$~~~~~~~~~~~~~~~~~~~~$conectadas $\leftarrow$ resTemp - 1;\Ode{1}\\ 
+$~~~~~~~~~~~~~~~~~~~~$longCable $\leftarrow$ longCable + (v[start+1]-v[start]);\Ode{1}\\
+$~~~~~~~~~~~~~~~~~~~~$incrementamos start en 1;  \Ode{1}\\
+$~~~~~~~~~~~~~~~~~~~~$\While{(longitud del cable $\geq$ 0 y v[actual] no es el último)} \{ \WhileOde{longitud del cable} \\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~$aux $\leftarrow$ longCable; \Ode{1}\\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~$a longitud del cable  le restamos (v[actual+1]- v[actual]); \Ode{1}\\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~$incrementamos en 1 actual \Ode{1}\\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$\textbf{si} (longitud del cable $\geq$ 0)  \IfOde{1}\\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$incrementamos en 1 conectadas \Ode{1}\\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$\textbf{si no} \\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$longitud del cable $\leftarrow$ 'aux' \Ode{1}\\
+$~~~~~~~~~~~~~~~~~~~~~$\} \\
+$~~~~~~~~~~~~~~~~~~~~$\textbf{si} (conectadas $>$ resTemp)\IfOde{1}\\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~$resTemp $\leftarrow$ conectadas\Ode{1}\\
+$~~~~~~~~$\}
+$~~~~~~~~~~~~~~~~~~~~$\textbf{si} (resTemp es 1)\IfOde{1}\\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~$resTemp $\leftarrow$ 2;\Ode{1}\\
+\}
+
+
+
+
+\}\\
 
 \subsection{Deducción de la cota de complejidad temporal}
 
@@ -37,7 +92,9 @@ Dedujimos que el algoritmo indica cuantas ciudades se pueden conectar, para cada
 
 \textbf{FALTA explicar porque dedujimos q es O(n)}
 
-Nuestro algoritmo, sin importar el archivo de entrada, recorre el vector de kilometrajes de ciudades de cada ramal \textbf{siempre}. Entonces decimos que el mejor caso es igual al peor caso,\textbf{ES CIERTO ESTO??}  por lo tanto vamos a mostrar la implementación de un test generado sin ninguna intencionalidad, pero antes explicaremos detalladamente como fue creado. \\
+%Nuestro algoritmo, sin importar el archivo de entrada, recorre el vector de kilometrajes de ciudades de cada ramal \textbf{siempre}. Entonces decimos que el mejor caso es igual al peor caso,\textbf{ES CIERTO ESTO??}  por lo tanto
+
+Vamos a mostrar la implementación de un test generado sin ninguna intencionalidad, pero antes explicaremos detalladamente como fue creado. \\
 
 Implementamos una función que genera números random para el archivo que le vamos a pasar por entrada a nuestro algoritmo con los siguientes criterios:
 \begin{itemize}
@@ -75,6 +132,7 @@ $~~~~~~$file2.close()\\
 Una vez que generamos el archivo del input con dicho test, ejecutamos nuestro algoritmo obteniendo el archivo de salida con la cantidad de ciudades conectadas para cada ramal, e imprimimos por pantalla el tiempo promedio en milisegundos que tardó nuestro algoritmo en calcular la máxima cantidad de estaciones conectadas de cada ramal. ¿Por qué el tiempo promedio? Bueno, al ejecutarlo un par de veces nos dimos cuenta que se obtenían valores parecidos pero no idénticos, entonces decidimos correr el algoritmo una cierta cantidad de iteraciones (en este caso 100), e ir acumulando los tiempos para luego dividir este acumulador por 100 y así obtener un valor promedio de los tiempos en los que se tarda en resolver el problema para cada ramal. \\
 
 Con estos tiempos creamos el gráfico de la figura \ref{ej1-tiempo-vs-cant-ciudades-random} que mostramos a continuación, en el que hacemos una comparación con la gráfica de O(n) y observamos como nuestro algoritmo cumple dicha complejidad.
+
 
 \begin{figure}[H]
 \begin{center}
