@@ -7,8 +7,8 @@
 using namespace std;
 
 vector<int> medianas(vector<int> a){
-    vector<int> res;
-    res.push_back(a[0]);
+    vector<int> res(a.size(),0);
+    res[0] = a[0];
     multiset<int> masGrandes;
     multiset<int> masChicos;
     int minimo;
@@ -32,13 +32,13 @@ vector<int> medianas(vector<int> a){
         if (masGrandes.size() == masChicos.size()){
             minimo = *masGrandes.begin();
             maximo = *masChicos.rbegin();
-            res.push_back((maximo+minimo)/2);
+            res[i] = (maximo+minimo)/2;
         } else if (masGrandes.size() - masChicos.size() == 1){
             minimo = *masGrandes.begin();
-            res.push_back(minimo);
+            res[i] = minimo;
         } else if (masGrandes.size() - masChicos.size() == -1){
             maximo = *masChicos.rbegin();            
-            res.push_back(maximo);
+            res[i] = maximo;
         }
     }
     return res;
