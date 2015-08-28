@@ -34,6 +34,10 @@ int conectar(vector<int> v , int longCable) {
 		actual++;
 	}
 
+
+
+
+
 	if (resTemp == 1) {
 		resTemp = 0; //si resTemp sigue en 1 como lo definimos, es porque no se conectó ninguna ciudad, entonces lo seteamos en 0.
 	}
@@ -41,13 +45,20 @@ int conectar(vector<int> v , int longCable) {
 	if (longCable < 0) {
 		longCable = aux; //si nos pasamos y longCable queda negativo, volvemos al valor anterior.
 	}
+ /*cout << longCable << endl;
+ cout << start << endl;
+ cout << actual << endl;
+ cout << aux  << endl;
+ cout << resTemp << endl;
+*/
 
 	while (v[actual] != v.back()) { //mientras que el elemento actual no sea el último..
 		int conectadas;
 		if (resTemp == 0) {
 			conectadas = 0; //si no conectamos ninguna ciudad, contectadas será 0, start 1, actual+1
 			start++;
-			actual++;
+			
+			
 		} else {
 			conectadas = resTemp - 1; //si conectamos alguna ciudad, 'conectadas' será la cant de ciudades conectadas - 1.
 			longCable = longCable + (v[start+1]-v[start]);
@@ -55,10 +66,14 @@ int conectar(vector<int> v , int longCable) {
 		}
 
 		while (longCable >= 0 && v[actual]!= v.back()) {
+			aux = longCable;
 			longCable = longCable - (v[actual+1]- v[actual]);
+			
 			actual++;
 			if (longCable >= 0) {
 				conectadas++;
+			}else{
+				longCable = aux;
 			}
 		}
 
@@ -111,6 +126,8 @@ int main() {
 	    	vec.push_back(b);
 	    }
 
+	    /*
+
 		while (iteraciones <= 100) {
 			clock_t startTime = clock();  //empezamos a medir el tiempo
 
@@ -124,12 +141,21 @@ int main() {
 			iteraciones++;
 	    }
 
+
+
 	    tiempo_promedio = tiempo_promedio/100.0; //calculo el promedio del tiempo de las 100 iteraciones.
 	    printf("%f \n", tiempo_promedio);
 
 	    tiempo_promedio = 0.0;
 	    iteraciones = 0;
+
+	    */
+
+	 int f = conectar(vec,a);
+	 out << f << endl;
     }
+
+
 
     out.close();
 	return 0;
