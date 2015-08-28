@@ -3,7 +3,6 @@ using namespace std;
 #include <tuple>
 #include <iostream>
 #include <algorithm>
-#include <sys/time.h>
 #include <sstream>
 #include <fstream>
 
@@ -16,7 +15,6 @@ class Ronda {
 		Ronda(vector<char> exploradoras, vector< vector<char> > amigas);
 		
 		vector<char> amigasDe(char e);
-		//bool esAmigaDe(char e);
 		
 		vector<char> exploradoras();
 		
@@ -36,21 +34,34 @@ class Ronda {
 		// El conjunto de amigas en la posicion i de friends corresponde a la exploradora en la posicion i en explorers.
 
 		void completarAmigas (vector<char>& exploradoras, vector<vector<char> >& amigas);
-		tuple<int, int, vector<char> > calcularDistancias();
 		bool pertenece (vector<char> v , char e);
 		bool perteneceConPos (vector<char> v , char e, int& posicion);
 		tuple<int, int, vector<char> > calcularDistancias (vector<char> permutacion, vector<char> e, vector<vector<char> > a);
 };
 
+
+//**************************************************************************
+//FUNCIONES PUBLICAS DE LA CLASE RONDA
+//**************************************************************************
+
+// Constructor de ronda vacia.
 Ronda::Ronda(){}
 
+//**************************************************************************
 
+//ACLARAR QUE LA COMPLEJIDAD DE completarAmigas SE TIENE QUE TENER EN CUENTA PARA LA COMPLEJIDAD DE LA RONDA OPTIMA
+
+// Constructor de ronda a partir de una lista de exploradoras y una lista con las amigas de cada una (cada exploradora se asocia a su
+// grupo de amigas mediante el indice de las listas).
 Ronda::Ronda(vector<char> exploradoras, vector< vector<char> > amigas) {
 	explorers = exploradoras;
 	friends = amigas; 
 	completarAmigas(explorers, friends);
 }
 
+//**************************************************************************
+
+// Imprime las exploradoras de la ronda, cada una con sus respectivas amigas.
 void Ronda::verRonda() {
 	cout << "[";
 	for ( int j = 0; j < explorers.size() ; j++ ) {
@@ -67,17 +78,26 @@ void Ronda::verRonda() {
 	cout << "]" <<endl;
 }
 
+//**************************************************************************
+
+// Dada una exploradora perteneciente a la ronda, devuelve una lista que contiene a sus amigas.
 vector<char> Ronda::amigasDe(char e) {
 	int i = 0;
 	while ( explorers[i] != e ) i++;
 	return friends[i];
 }
 
+//**************************************************************************
+
+// Devuelve una lista que contiene a todas las exploradoras de la ronda.
 vector<char> Ronda::exploradoras() {
 	return explorers;
 }
 
+//**************************************************************************
 
+// Devuelve una tupla donde la segunda componente es la ronda optima, y la primera corresponde a la distancia maxima entre 2 amigas
+// en dicha ronda.
 tuple<int, vector<char> > Ronda::mejorOrden() {
 	vector<char> exploradoras = explorers;
 	sort( exploradoras.begin(), exploradoras.begin()+exploradoras.size() );
@@ -94,8 +114,12 @@ tuple<int, vector<char> > Ronda::mejorOrden() {
 	return res;
 }
 
+//**************************************************************************
+// FUNCIONES AUXILIARES(PRIVADAS) DE LA CLASE RONDA
+//**************************************************************************
 
-// Completa el input de manera tal que en el vector esten todas las exploradoras, cada una con todas sus amigas
+// Funcion utilizada a la hora de crear una ronda no vacia. Como en el archivo de entrada las amistades pueden no estar escritas de manera simetrica,
+// esta funcion verifica si falta escribir algo y lo agrega, para almacenarlo de esta forma.
 void Ronda::completarAmigas (vector<char>& exploradoras, vector<vector<char> >& amigas) {
 	int i = 0;
 	while ( i < exploradoras.size() ) {
@@ -117,7 +141,9 @@ void Ronda::completarAmigas (vector<char>& exploradoras, vector<vector<char> >& 
 	}
 }
 
+//**************************************************************************
 
+// Devuelve true si e aparece al menos una vez en v.
 bool Ronda::pertenece (vector<char> v , char e) {
 	int i = 0;
 	bool noEncontrado = true;
@@ -128,7 +154,9 @@ bool Ronda::pertenece (vector<char> v , char e) {
 	return !noEncontrado;
 }
 
-//Funcion pertenece para vector de tuplas respecto de la primer coordenada
+//**************************************************************************
+
+// Igual que pertenece, pero ademas modifica posicion asignandole el indice del caracter encontrado (si es false no se debe tener en cuenta).
 bool Ronda::perteneceConPos (vector<char> v , char e, int& posicion) {
 	int i = 0;
 	bool noEncontrado = true;
@@ -140,69 +168,10 @@ bool Ronda::perteneceConPos (vector<char> v , char e, int& posicion) {
 	return !noEncontrado;
 }
 
-void imprimir (vector<char> v) {
-	cout << "[";
-	for(int j = 0; j < v.size() ; j++){
-		if (j + 1 == v.size()) {
-			cout << v[j];	
-		}else{
-			cout << v[j] << ",";
-		}
-	}
-	cout << "]" << endl;
-}
+//**************************************************************************
 
-
-int main() {
-
-	//a fb;b gc;d gc;f agh;e hd
-
-	vector <char> amigas1 = {'f', 'b'};
-	//imprimir(amigas1);
-	
-
-	vector <char> amigas2 = {'g', 'c', 'a'};
-	//imprimir(amigas2);
-
-
-	vector <char> amigas3 = {'g', 'c', 'e'};
-	//imprimir(amigas3);
-	
-
-	vector <char> amigas4 = {'a', 'g', 'h'};
-	//imprimir(amigas4);
-
-
-	vector <char> amigas5 = {'h', 'd'};
-	//imprimir(amigas5);
-
-	vector <char> amigas6 = {'b', 'd', 'f'};
-
-	vector <char> amigas7 = {'b', 'd'};
-
-	vector <char> amigas8 = {'f', 'e'};
-
-	vector<vector<char> > amigas = {amigas1, amigas2, amigas3, amigas4, amigas5, amigas6, amigas7, amigas8};
-
-	vector<char> exploradoras = {'a', 'b', 'd', 'f', 'e', 'g', 'c', 'h'};
-
-
-	vector<char> permutacion = {'a', 'b', 'c', 'f', 'g', 'd', 'h', 'e'};
-
-	Ronda r1 (exploradoras, amigas);
-	r1.verRonda();
-	imprimir(get<1>(r1.mejorOrden()));
-
-
-
-
-//abcfgdhe
-
-}
-
-
-
-//Dada una ronda, calcula la suma de las distancias entre las exploradoras que son amigas, y la mayor distancia entre 2
+// Dada una posible permutacion de una ronda, calcula la suma de las distancias entre las exploradoras que son amigas, y la mayor 
+// distancia entre 2 amigas en dicha ronda. Tambien devuelve la permutacion de entrada.
 tuple<int, int, vector<char> > Ronda::calcularDistancias (vector<char> permutacion, vector<char> e, vector<vector<char> > a) {
 	int i = 0;
 	int suma = 0;
@@ -235,3 +204,86 @@ tuple<int, int, vector<char> > Ronda::calcularDistancias (vector<char> permutaci
 	get<2>(res) = permutacion;
 	return res;
 }
+
+//**************************************************************************
+// OTRAS FUNCIONES
+//**************************************************************************
+
+// Imprime un vector<char>.
+void imprimir (vector<char> v) {
+	cout << "[";
+	for(int j = 0; j < v.size() ; j++){
+		if (j + 1 == v.size()) {
+			cout << v[j];	
+		}else{
+			cout << v[j] << ",";
+		}
+	}
+	cout << "]" << endl;
+}
+
+//**************************************************************************
+
+// Imprime un vector< vector<char> >.
+void imprimir2 (vector< vector<char> > v ) {
+	cout << "[";
+	for ( int j = 0; j < v.size() ; j++ ) {
+		cout << "{";
+		for ( int i = 0; i < v[j].size() ; i++ ) {
+			if ( i == v[j].size() - 1 ) {
+				cout << v[j][i];
+			}else{
+				cout << v[j][i] << ",";
+			}
+		}
+		cout << "}";
+		if ( j != v.size() - 1 ) {
+			cout << ";";
+		}
+	}
+	cout << "]" <<endl;
+}
+
+//**************************************************************************
+
+int main() {
+
+ 	ifstream in("Tp1Ej3.in");
+ 	ofstream out;
+    out.open("resultados.out");
+	
+
+	while(in.good()) {
+		vector<char> exploradoras;
+		vector<vector<char> > amigas;
+		string s,xs;	
+		getline(in, s);
+
+		for(int i = 0; i < s.size(); i++) {	 // Con esto reemplazo los ";" por " ".
+			if (s[i] == ';') s[i] = ' ';
+		}
+
+		istringstream iss;
+		iss.str(s);
+		iss.clear();
+		while(iss >> s >> xs) {
+			exploradoras.push_back(s[0]);
+			vector<char> v;
+			for (int j = 0; j < xs.size(); j++) {
+				v.push_back(xs[j]);
+			}
+			amigas.push_back(v);  
+		}
+		Ronda r(exploradoras, amigas);
+		tuple<int, vector<char> > res = r.mejorOrden();
+		out << get<0>(res) << " ";
+		for (int i = 0; i < get<1>(res).size(); i++) {
+			out << get<1>(res)[i];
+		}
+		out << endl;
+
+		}
+
+}
+
+
