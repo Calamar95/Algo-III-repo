@@ -3,6 +3,21 @@ using namespace std;
 #include <tuple>
 #include <iostream>
 #include <algorithm>
+#include <sys/time.h>
+#include <sstream>
+#include <fstream>
+
+
+class Ronda {
+	public:
+		Ronda();
+		void agregarExploradora(char e, vector<char> amigas);
+		vector<char> dameAmigasDe(char e);
+		bool esAmigaDe?(char )
+
+
+
+};
 
 
 tuple<int, int, vector<char> > calcularDistancias (vector<char> permutacion, vector<tuple<char,vector<char> > > entrada);
@@ -70,7 +85,7 @@ tuple<int, int, vector<char> > calcularDistancias (vector<char> permutacion, vec
 		vector<char> amigas = buscarAmigas(permutacion[i], entrada);
 		int j = i + 1;
 		while (j < permutacion.size()) {
-			if ( pertenece(amigas, permutacion[j]) ) {                     //O(e)
+			if ( pertenece(amigas, permutacion[j]) ) {                     
 				int distancia;
 				if (j - i > permutacion.size() / 2) {					
 					distancia = permutacion.size() - (j - i); 
@@ -268,7 +283,7 @@ int main (){
 	//imprimirG(inst);
 */
 
-
+/*
 	vector <char> amigas1 = {'y', 'z'};
 	//imprimir(amigas1);
 	tuple<char, vector<char> > a1 ('x', amigas1);
@@ -276,11 +291,26 @@ int main (){
 	vector<tuple<char,vector<char> > > inst = {a1};
 
 	tuple<int, vector<char> > resultado = ejercicio3(inst);
+	
+	
+	/*
 	cout << get<0>(resultado) << ";";
 	imprimir(get<1>(resultado)); 
 
+	*/
 	
+	ifstream in("Tp1Ej3.in");
 	
+	while (in.good()) {
+	string s;
+
+	getline(in, s, ' ');
+	getline(in, s, ';');
+	cout << s <<endl;
+	}
+
+
+  
 }
 
 
