@@ -22,22 +22,15 @@ int conectar(vector<int> v , int longCable) {
 
 	while (longCable > 0 && v[actual] != v.back()) {
 		aux = longCable;
-		if (actual == 0) {
-			longCable = longCable - v[actual+1]; //si comparamos con el primer elemento del vector (el km 0), entonces a longCable le restamos el valor del segundo elemento.
-		} else {
-			longCable = longCable -(v[actual+1] - v[actual]); //si comparamos con otro elemento, a longCable le restamos la diferencia entre dicho elemento y su próximo.
-		}
-
+		longCable = longCable -(v[actual+1] - v[actual]); //si comparamos con otro elemento, a longCable le restamos la diferencia entre dicho elemento y su próximo.
+		
 		if (longCable >= 0) {
 			resTemp++; //actualizamos resTemp solo si longCable sigue siendo positivo.
+			actual++;
 		}
-		actual++;
+		
 	}
-
-
-
-
-
+	int conectadas = resTemp;
 	if (resTemp == 1) {
 		resTemp = 0; //si resTemp sigue en 1 como lo definimos, es porque no se conectó ninguna ciudad, entonces lo seteamos en 0.
 	}
@@ -45,36 +38,43 @@ int conectar(vector<int> v , int longCable) {
 	if (longCable < 0) {
 		longCable = aux; //si nos pasamos y longCable queda negativo, volvemos al valor anterior.
 	}
- /*cout << longCable << endl;
- cout << start << endl;
- cout << actual << endl;
- cout << aux  << endl;
- cout << resTemp << endl;
+	
+ /*
+ cout << "cable " << longCable << endl;
+ cout << "start " << start << endl;
+ cout << "ciudad actual " << actual << endl;
+ cout << "conectadas " << resTemp << endl;
 */
 
 	while (v[actual] != v.back()) { //mientras que el elemento actual no sea el último..
-		int conectadas;
+		
 		if (resTemp == 0) {
 			conectadas = 0; //si no conectamos ninguna ciudad, contectadas será 0, start 1, actual+1
 			start++;
-			
-			
+			actual++;
+
 		} else {
-			conectadas = resTemp - 1; //si conectamos alguna ciudad, 'conectadas' será la cant de ciudades conectadas - 1.
+			
+			conectadas = conectadas - 1; //si conectamos alguna ciudad, 'conectadas' será la cant de ciudades conectadas - 1.
+			cout << "calbe c" << longCable << endl;
 			longCable = longCable + (v[start+1]-v[start]);
-			start++;
+			start++;	
 		}
 
 		while (longCable >= 0 && v[actual]!= v.back()) {
-			aux = longCable;
+			cout << "cableb" << longCable << endl;
+			aux = longCable;			
 			longCable = longCable - (v[actual+1]- v[actual]);
-			
-			actual++;
+			cout << "cable" << longCable << endl;					
+
 			if (longCable >= 0) {
 				conectadas++;
-			}else{
-				longCable = aux;
+				actual++;
 			}
+		}
+
+		if (longCable < 0) {
+		longCable = aux; //si nos pasamos y longCable queda negativo, volvemos al valor anterior.
 		}
 
 		if (conectadas > resTemp) {
