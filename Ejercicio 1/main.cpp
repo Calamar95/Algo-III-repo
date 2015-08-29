@@ -56,16 +56,13 @@ int conectar(vector<int> v , int longCable) {
 		} else {
 			
 			conectadas = conectadas - 1; //si conectamos alguna ciudad, 'conectadas' será la cant de ciudades conectadas - 1.
-			cout << "calbe c" << longCable << endl;
 			longCable = longCable + (v[start+1]-v[start]);
 			start++;	
 		}
 
 		while (longCable >= 0 && v[actual]!= v.back()) {
-			cout << "cableb" << longCable << endl;
 			aux = longCable;			
-			longCable = longCable - (v[actual+1]- v[actual]);
-			cout << "cable" << longCable << endl;					
+			longCable = longCable - (v[actual+1]- v[actual]);			
 
 			if (longCable >= 0) {
 				conectadas++;
@@ -126,8 +123,7 @@ int main() {
 	    	vec.push_back(b);
 	    }
 
-	    /*
-
+	    
 		while (iteraciones <= 100) {
 			clock_t startTime = clock();  //empezamos a medir el tiempo
 
@@ -144,18 +140,11 @@ int main() {
 
 
 	    tiempo_promedio = tiempo_promedio/100.0; //calculo el promedio del tiempo de las 100 iteraciones.
-	    printf("%f \n", tiempo_promedio);
+	    //printf("%f \n", tiempo_promedio);  //se descomenta para saber los tiempos promedios para el gráfico.
 
 	    tiempo_promedio = 0.0;
 	    iteraciones = 0;
-
-	    */
-
-	 int f = conectar(vec,a);
-	 out << f << endl;
     }
-
-
 
     out.close();
 	return 0;
