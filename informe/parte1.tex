@@ -35,62 +35,59 @@ $~~~~~~~~~~~~$int resTemp $\leftarrow$ 1 \Ode{1}\\
 $~~~~~~~~~~~~$int start $\leftarrow$ 0 \Ode{1}\\
 $~~~~~~~~~~~~$int actual $\leftarrow$ 0 \Ode{1}\\
 $~~~~~~~~~~~~$int aux $\leftarrow$ 0 \Ode{1}\\
-
-$~~~~~~~~$\While{ (la longitud del cable sea $>$ 0 y v[actual] no sea el ultimo)} \{ \WhileOde{n} \\
+$~~~~~~~~~~~~$\textbf{mientras} (la longitud del cable sea $>$ 0 y v[actual] no sea el ultimo) \{ \\ \WhileOde{n} \\
 $~~~~~~~~~~~~~~~$aux  $\leftarrow$ longitud del cable \Ode{1}\\
-$~~~~~~~~~~~~~~~$\textbf{si} es el primer elemento del vector (el km 0) \IfOde{1}\\
-$~~~~~~~~~~~~~~~~~~~~$a la longitud del cable le restamos el valor del segundo elemento. \Ode{1}\\
-$~~~~~~~~~~~~~~~$\textbf{si no} es el kilómetro 0\\
-$~~~~~~~~~~~~~~~~~~~~$a la longitud del cable le restamos la diferencia entre dicho elemento y su próximo.\Ode{1}\\
-
-$~~~~~~~~$\}\\
-
-$~~~~~~~~$\textbf{si} la longitud del cable sigue $>$ 0 \\
-$~~~~~~~~~~~~~~~$incrementamos en 1 resTemp\Ode{1}\\
-		
-$~~~~~~~~$incrementamos en 1 actual, siempre.\Ode{1}\\
-
-$~~~~~~~~$\textbf{si} resTemp sigue valiendo 1 \IfOde{1}\\
+$~~~~~~~~~~~~~~~$longitud del cable - (elemento próximo - elemento actual).\Ode{1}\\
+$~~~~~~~~~~~~~~~$\textbf{si} (la longitud del cable sigue $\geq$ 0) \{ \\ \IfOde{1}\\
+$~~~~~~~~~~~~~~~~~~~~~~$incrementamos en 1 resTemp\Ode{1}\\
+$~~~~~~~~~~~~~~~~~~~~~~$incrementamos en 1 actual\Ode{1}\\
+$~~~~~~~~~~~~~~~$\} \\ 
+$~~~~~~~~~~~~$\} \\ 
+$~~~~~~~~~~~~$int conectadas $\leftarrow$ resTemp \Ode{1}\\
+$~~~~~~~~~~~~$\textbf{si} (resTemp sigue valiendo 1)\{ \\ \IfOde{1}\\
 $~~~~~~~~~~~~~~~$ seteamos resTemp $\leftarrow$ 0; porque no se conectó ninguna ciudad. \Ode{1}\\
-
-$~~~~~~~~$\textbf{si} nos pasamos y la longitud del cable $<$ 0  \IfOde{1} \\
-$~~~~~~~~~~~~~~~$volvemos al valor anterior: la longitud del cable $\leftarrow$ 'aux' \Ode{1}\\
-
-$~~~~~~~~$\While{la longitud del cable sea $>$ 0 y el elemento actual no sea el último)} \{ \WhileOde{n} \\
-		int conectadas \\
-$~~~~~~~~~~~~~~~$\textbf{si}(resTemp $\leftarrow$0)  \IfOde{1} \\
+$~~~~~~~~~~~~$\} \\ 
+$~~~~~~~~~~~~$\textbf{si} (nos pasamos y la longitud del cable $<$ 0) \{ \\  \IfOde{1} \\
+$~~~~~~~~~~~~~~~$volvemos al valor anterior: la longitud del cable $\leftarrow$ aux\Ode{1}\\
+$~~~~~~~~~~~~$\} \\ 
+$~~~~~~~~~~~~$\textbf{mientras} (el elemento actual no sea el último) \{  \\ \WhileOde{n} \\
+$~~~~~~~~~~~~~~~$\textbf{si}(resTemp == 0) \{ \\ \IfOde{1} \\
 $~~~~~~~~~~~~~~~~~~~~$conectadas  $\leftarrow$ 0; \Ode{1}\\
-$~~~~~~~~~~~~~~~~~~~~$start++; \Ode{1}\\
-$~~~~~~~~~~~~~~~$\textbf{si no}
-$~~~~~~~~~~~~~~~~~~~~$conectadas $\leftarrow$ resTemp - 1;\Ode{1}\\ 
-$~~~~~~~~~~~~~~~~~~~~$longCable $\leftarrow$ longCable + (v[start+1]-v[start]);\Ode{1}\\
 $~~~~~~~~~~~~~~~~~~~~$incrementamos start en 1;  \Ode{1}\\
-$~~~~~~~~~~~~~~~~~~~~$\While{(longitud del cable $\geq$ 0 y v[actual] no es el último)} \{ \WhileOde{longitud del cable} \\
-$~~~~~~~~~~~~~~~~~~~~~~~~~~~$aux $\leftarrow$ longCable; \Ode{1}\\
-$~~~~~~~~~~~~~~~~~~~~~~~~~~~$a longitud del cable  le restamos (v[actual+1]- v[actual]); \Ode{1}\\
-$~~~~~~~~~~~~~~~~~~~~~~~~~~~$incrementamos en 1 actual \Ode{1}\\
-$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$\textbf{si} (longitud del cable $\geq$ 0)  \IfOde{1}\\
-$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$incrementamos en 1 conectadas \Ode{1}\\
-$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$\textbf{si no} \\
-$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$longitud del cable $\leftarrow$ 'aux' \Ode{1}\\
-$~~~~~~~~~~~~~~~~~~~~~$\} \\
-$~~~~~~~~~~~~~~~~~~~~$\textbf{si} (conectadas $>$ resTemp)\IfOde{1}\\
-$~~~~~~~~~~~~~~~~~~~~~~~~~~~~$resTemp $\leftarrow$ conectadas\Ode{1}\\
-$~~~~~~~~$\}
-$~~~~~~~~~~~~~~~~~~~~$\textbf{si} (resTemp es 1)\IfOde{1}\\
-$~~~~~~~~~~~~~~~~~~~~~~~~~~~~$resTemp $\leftarrow$ 2;\Ode{1}\\
-\}
-
-
-
-
+$~~~~~~~~~~~~~~~~~~~~$incrementamos actual en 1;  \Ode{1}\\
+$~~~~~~~~~~~~~~~$\} \textbf{si no} \{ \\
+$~~~~~~~~~~~~~~~~~~~~$decrementamos conectadas en 1;\Ode{1}\\ 
+$~~~~~~~~~~~~~~~~~~~~$a longitud del cable le sumamos (v[start+1]-v[start]);\Ode{1}\\
+$~~~~~~~~~~~~~~~~~~~~$incrementamos start en 1;  \Ode{1}\\
+$~~~~~~~~~~~~~~~$\} \\
+$~~~~~~~~~~~~~~~$\textbf{mientras}(longitud del cable $\geq$ 0 y v[actual] no es el último) \{ \\ \WhileOde{longitud del cable} \\
+$~~~~~~~~~~~~~~~~~~~~$aux $\leftarrow$ longitud del cable \Ode{1}\\
+$~~~~~~~~~~~~~~~~~~~~$a longitud del cable  le restamos (v[actual+1]- v[actual]); \Ode{1}\\
+$~~~~~~~~~~~~~~~~~~~~$\textbf{si} (longitud del cable $\geq$ 0) \{ \\ \IfOde{1}\\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~$incrementamos conectadas en 1  \Ode{1}\\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~$incrementamos actual en 1  \Ode{1}\\
+$~~~~~~~~~~~~~~~~~~~~$\} \\
+$~~~~~~~~~~~~~~~~$\} \\
+$~~~~~~~~~~~~~~~~$\textbf{si} (longitud del cable $<$ 0 ) \{ \\ \IfOde{1}\\
+$~~~~~~~~~~~~~~~~~~~~$longitud del cable $\leftarrow$aux\Ode{1}\\
+$~~~~~~~~~~~~~~~~$\} \\
+$~~~~~~~~~~~~~~~~$\textbf{si} (conectadas $>$ resTemp) \{ \\ \IfOde{1}\\
+$~~~~~~~~~~~~~~~~~~~~$resTemp $\leftarrow$ conectadas\Ode{1}\\
+$~~~~~~~~~~~~~~~~$\} \\
+$~~~~~~~~~~~~$\} \\
+$~~~~~~~~~~~~$\textbf{si} (resTemp es 1) \{ \\ \IfOde{1}\\
+$~~~~~~~~~~~~~~~~~~~~$resTemp $\leftarrow$ 2;\Ode{1}\\
+$~~~~~~~~~~~~$\} \\
+$~~~~~~~~~~~~$devolvemos resTemp \Ode{1} \\
 \}\\
 
 \subsection{Deducción de la cota de complejidad temporal}
 
-Dedujimos que el algoritmo indica cuantas ciudades se pueden conectar, para cada ramal en O(n), siendo n la cantidad de estaciones en cada ramal, ya que..
 
-\textbf{FALTA explicar porque dedujimos q es O(n)}
+\textbf{ES CORRECTO LO SIGUIENTE????::}
+
+Dedujimos que el algoritmo indica cuantas ciudades se pueden conectar, para cada ramal en O(n), siendo n la cantidad de estaciones en cada ramal, ya que el primer while se ejecuta como mucho n veces, el segundo while se ejecuta también n veces, y dentro de él hay otro while que se ejecuta longitud del cable veces \textbf{ó n veces tambien?????.}
+Además usamos las funciones $>$, $<$, $\geq$, $+$, $-$, $==$,  de complejidad constante, la asignación, también O(1), el $operator[]$ de complejidad O(1) y la función del vector $.back()$ que es también O(1).
 
 %Nuestro algoritmo, sin importar el archivo de entrada, recorre el vector de kilometrajes de ciudades de cada ramal \textbf{siempre}. Entonces decimos que el mejor caso es igual al peor caso,\textbf{ES CIERTO ESTO??}  por lo tanto
 
