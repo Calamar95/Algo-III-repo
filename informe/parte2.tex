@@ -3,36 +3,43 @@ Se nos propone realizar un algoritmo en el que dados n número enteros en cualqu
 La mediana de un conjunto ordenado de n números se define como x$_{(n+1)/2}$ si n es impar, o como (x$_{n/2}$ + x$_{n/2+1)}$)/2  si n es par.
 \subsection{Explicación y pseudocódigo}
 
-La idea es la siguiente. Dividimos un arreglo (L) de tamaño n en dos conjuntos (multiconjuntos, pueden tener repetidos), uno con los elementos menores a cierto numero (A) y otro con los mayores (B). Los elementos iguales a ese numero pueden ir en cualquiera de los dos. Entonces sabemos que, si ordenaramos el arreglo, L[ \textbar A\textbar] = max(A) y L[\textbar A\textbar+1] = min(B). Tres casos importantes: 
+Lo que hicimos fue dividir un arreglo (L) de tamaño n en dos conjuntos (multiconjuntos, ie: pueden tener repetidos), uno con los elementos menores a cierto número (A) y otro con los mayores (B). Los elementos iguales a ese número pueden ir en cualquiera de los dos. Entonces sabemos que, si ordenaramos el arreglo, L[ \textbar A\textbar] = max(A) y L[\textbar A\textbar+1] = min(B). Tres casos importantes: 
 
 \begin{itemize}
 \item Si ambos conjuntos tienen la misma cantidad de elementos entonces L[\textbar A\textbar] = L[n/2] = max(A) y L[n/2+1] = min(B). Entonces la mediana(L) = (max(A)+min(B))/2
 \item Si \textbar A\textbar = \textbar B\textbar + 1 (n es impar), entonces L[(n+1)/2] = max(A). Entonces la mediana(L) = max(A)
 \item Si \textbar A\textbar + 1 = \textbar B\textbar (n es impar), entonces L[(n+1)/2] = min(B). Entonces la mediana(L) = min(B)
 \end{itemize}
-	
 
-	
+
 Nuestro algoritmo lo que hace es: 
 \begin{itemize}
-\item Insertar el primer elemento (asumimos que no puede ser vacio el arreglo original) en el conjunto de los elementos mas grandes (B) e insertarlo tambien en la posicion 1 del resultado, ya que es mediana.
-\item Hasta que no queden elementos en el arreglo original, se agrega el elemento i del arreglo original en el conjunto A si es menor a la mediana del paso anterior y al conjunto B si es mayor. Si la diferencia entre la cantidad de elementos de ambos conjuntos es igual a 2, entonces quitamos el mayor elemento de A o el menor elemento de B y lo insertamos en el otro para que nos queden dos conjuntos de igual tamaño. Entonces podemos utilizar la propiedad de arriba y sacar facilmente la mediana, obteniendo el maximo y/o minimo de los conjuntos correspondientes. Ponemos la mediana en la posicion i del resultado y avanzamos a la siguiente iteracion
+\item Insertar el primer elemento (asumimos que no puede ser vacío el arreglo original) en el conjunto de los elementos más grandes (B) e insertarlo también en la posición 1 del resultado, ya que es mediana.
+\item Hasta que no queden elementos en el arreglo original, se agrega el elemento i del arreglo original en el conjunto A si es menor a la mediana del paso anterior y al conjunto B si es mayor. Si la diferencia entre la cantidad de elementos de ambos conjuntos es igual a 2, entonces quitamos el mayor elemento de A o el menor elemento de B y lo insertamos en el otro para que nos queden dos conjuntos de igual tamaño. Entonces podemos utilizar la propiedad de arriba y sacar fácilmente la mediana, obteniendo el máximo y/o mínimo de los conjuntos correspondientes. Ponemos la mediana en la posición i del resultado y avanzamos a la siguiente iteración.
 \end{itemize}
 
 
 \subsection{Deducción de la cota de complejidad temporal}
-Los conjuntos utilizados son $<$multiset$>$ cortesia de c++. La insercion y borrado es O(log(n)) y obtener maximo y minimo son O(1), donde n es la cantidad de elementos del conjunto. JUSTIFICAR!!! \\
+Los conjuntos utilizados son  \textbf{$<$multiset$>$} cortesía de C++. La inserción y borrado cuesta O(log(n)) siendo n la cantidad de elementos del conjunto, ya que usamos las funciones de C++: \textbf{insert} y \textbf{erase} de los \textbf{multiset}, respectivamente. La función \textbf{erase} cuesta O(log(n)) + O(m) siendo n = cantidad de elementos del conjunto, y m el número de elementos eliminados, en nuestro caso, siempre es uno porque llamamos a erase una vez con el elemento mínimo y otra con el máximo.\\
+Obtener máximo y mínimo nos cuesta O(1), pues usamos \textbf{begin()} y \textbf{rbegin()} de complejidad constante.  \\
+
 Tenemos como entrada un vector de tamaño n. Los pasos a realizar son: \\
-Crear el vector donde se guardara y devolvera el resultado se realiza en O(n) \\
-Insertar el primer elemento del arreglo original en el resultado es O(1) \\
-Luego, se realizan n-1 iteraciones, en las cuales:
+
+1) Crear el vector donde se guardará y devolverá el resultado: se realiza en O(n). \\
+
+2) Insertar el primer elemento del arreglo original en el arreglo resultado es O(1), porque usamos \textbf{operator[]} de complejidad constante. \\
+
+3) Luego, se realizan n-1 iteraciones, en las cuales: \\
+
 \begin{itemize}
-\item Se realiza una comparacion O(1) y se hace una insercion en alguno de los conjuntos en O(log(n))
-\item Si la diferencia entre la cantidad de elementos de ambos conjuntos es igual a 2, se elimina el mayor elemento de A o el menor elemento de B en O(log(n)) y lo insertamos en el otro en O(log(n))
-\item Obtenemos el maximo y/o minimo de los conjuntos correspondientes para calcular la mediana y la insertamos en el resultado en O(1)
+\item Se realiza una comparación O(1) y se hace una inserción en alguno de los conjuntos en O(log(n)).
+\item Si la diferencia entre la cantidad de elementos de ambos conjuntos es igual a 2, se elimina el mayor elemento de A o el menor elemento de B en O(log(n)) y lo insertamos en el otro en O(log(n)).
+\item Obtenemos el máximo y/o mínimo de los conjuntos correspondientes para calcular la mediana y la insertamos en el resultado en O(1).
 \end{itemize}
-Aclaracion: en este ciclo, en realidad, las complejidades no son O(log(n)) sino que son O(log(i)) siendo i el numero de iteracion. Pero como i $<$ n para todo i, entonces lo acotamos por O(log(n)) \\
-Entonces la complejidad total del algoritmo es O(n+(n-1)log(n)) = O(nlog(n))
+Aclaración: en este ciclo, en realidad, las complejidades no son O(log(n)) sino que son O(log(i)) siendo i el número de iteración. Pero como i $<$ n $\forall$ i, entonces lo acotamos por O(log(n)). \\
+
+Entonces la complejidad total del algoritmo es O(n + (n-1)log(n)) = O(n log(n)).
+
 \subsection{Demostración formal}
 \subsection{Experimentaciones}
 
