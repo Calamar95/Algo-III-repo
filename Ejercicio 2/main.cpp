@@ -51,7 +51,7 @@ int main() {
     
     ofstream out;
     out.open("resultado.out");
-    ifstream in("Tp1Ej2.in");
+    ifstream in("ejMejorCaso.in");
 
     int iteraciones = 0;
     double tiempo_promedio = 0;

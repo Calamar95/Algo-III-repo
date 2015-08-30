@@ -43,13 +43,16 @@ for x in xrange(1,10000, 100):
 	i = 0
 	signo = 0
 	num = 0
-	
+	aux = 0
+	aux2 = 0
 	while i < x:
 		if signo == 0:
-			num = num + (random.randrange(x)+1)
+			num = aux + (random.randrange(x)+1)
+			aux = num
 			signo = 1
 		else:
-			num = num - (random.randrange(x)+1)
+			num = aux2 - (random.randrange(x)+1)
+			aux2 = num
 			signo = 0
 		file3.write(str(num) + ' ')
 		i = i + 1
