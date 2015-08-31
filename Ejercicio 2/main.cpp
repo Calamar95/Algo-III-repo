@@ -7,6 +7,10 @@
 using namespace std;
 
 vector<int> medianas(vector<int> a){
+    if (a.size() == 0){
+        vector<int> resultado;
+        return resultado;
+    }
     vector<int> res(a.size(),0);
     res[0] = a[0];
     multiset<int> masGrandes;
@@ -47,7 +51,11 @@ int main() {
     
     ofstream out;
     out.open("resultado.out");
-    ifstream in("Tp1Ej2.in");
+    ifstream in("ejMejorCaso.in");
+
+    int iteraciones = 0;
+    double tiempo_promedio = 0;
+
     while (in.good()){
         vector<int> vec;
         string st;
@@ -58,12 +66,26 @@ int main() {
         int a;
         while(iss>>a){
             vec.push_back(a);
+        }        
+
+        while (iteraciones <= 100) {
+            clock_t startTime = clock();  //empezamos a medir el tiempo
+            vector<int> res = medianas(vec); //f es la cantidad máxima de ciudades conectadas de un ramal.
+            tiempo_promedio += ((double)clock() - startTime) / (CLOCKS_PER_SEC / 1000); //primero sumo los tiempos de las 100 iteraciones.
+            if(iteraciones == 0){
+                for(int i = 0; i<res.size(); i++){
+                    out << res[i] << " ";
+                }
+                out << endl; //en el archivo de salida guardo una vez la cantidad maxima de ciudades conectadas del ramal.
+            }
+            iteraciones++;
         }
-        vector<int> res = medianas(vec);
-        for(int i = 0; i<res.size(); i++){
-            out << res[i] << " ";
-        }
-        out << endl;
+        tiempo_promedio = tiempo_promedio/100.0; //calculo el promedio del tiempo de las 100 iteraciones.
+        printf("%f \n", tiempo_promedio);  //se descomenta para saber los tiempos promedios para el gráfico.
+
+        tiempo_promedio = 0.0;
+        iteraciones = 0;
+
     }
     out.close();
 

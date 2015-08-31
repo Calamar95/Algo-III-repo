@@ -14,7 +14,8 @@ Lo que hicimos fue dividir un arreglo (L) de tamaño n en dos conjuntos (multico
 
 Nuestro algoritmo lo que hace es: 
 \begin{itemize}
-\item Insertar el primer elemento (asumimos que no puede ser vacío el arreglo original) en el conjunto de los elementos más grandes (B) e insertarlo también en la posición 1 del resultado, ya que es mediana.
+\item Si el arreglo original no contiene elementos, entonces devolvemos un vector vacio
+\item Insertar el primer elemento en el conjunto de los elementos más grandes (B) e insertarlo también en la posición 1 del resultado, ya que es mediana.
 \item Hasta que no queden elementos en el arreglo original, se agrega el elemento i del arreglo original en el conjunto A si es menor a la mediana del paso anterior y al conjunto B si es mayor. Si la diferencia entre la cantidad de elementos de ambos conjuntos es igual a 2, entonces quitamos el mayor elemento de A o el menor elemento de B y lo insertamos en el otro para que nos queden dos conjuntos de igual tamaño. Entonces podemos utilizar la propiedad de arriba y sacar fácilmente la mediana, obteniendo el máximo y/o mínimo de los conjuntos correspondientes. Ponemos la mediana en la posición i del resultado y avanzamos a la siguiente iteración.
 \end{itemize}
 
