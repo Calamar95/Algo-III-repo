@@ -38,13 +38,6 @@ int conectar(vector<int> v , int longCable) {
 	if (longCable < 0) {
 		longCable = aux; //si nos pasamos y longCable queda negativo, volvemos al valor anterior.
 	}
-	
- /*
- cout << "cable " << longCable << endl;
- cout << "start " << start << endl;
- cout << "ciudad actual " << actual << endl;
- cout << "conectadas " << resTemp << endl;
-*/
 
 	while (v[actual] != v.back()) { //mientras que el elemento actual no sea el último..
 		
