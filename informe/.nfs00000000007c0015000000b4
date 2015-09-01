@@ -12,9 +12,9 @@ a fb;b gc;d gc;f agh;e hd \\
 x yz \\
 \\
 Cada línea corresponde a un grupo de exploradoras; y se compone de una exploradora, seguida por una sucesion de amistades
-separadas por $"$;$"$. Por ejemplo, en la primer línea, el grupo de exploradoras esta compuesto por $"$a$"$ cuyas amigas son [bcde],
-$"$b$"$ con [acde], $"$c$"$ con [abde] y por último $"$d$"$ y $"$e$"$ con  [abc]. Asumimos que las amistades son simétricas, es decir, si $"$a$"$ es
-amiga de $"$b$"$, entonces $"$b$"$ es amiga de $"$a$"$. Por lo tanto, aunque ocurra que $"$x$"$ este en el conjunto de amigas de $"$y$"$, pero $"$y$"$ no este en el de $"$x$"$, debemos interpretarlo como que cada una esta en el grupo de amigas de la otra.   
+separadas por ";". Por ejemplo, en la primer línea, el grupo de exploradoras esta compuesto por "a" cuyas amigas son [bcde],
+"b" con [acde], "c" con [abde] y por último "d" y "e" con  [abc]. Asumimos que las amistades son simétricas, es decir, si "a" es
+amiga de "b", entonces "b" es amiga de "a". Por lo tanto, aunque ocurra que "x" este en el conjunto de amigas de "y", pero "y" no este en el de "x", debemos interpretarlo como que cada una esta en el grupo de amigas de la otra.   
 \\
 Las salidas que corresponden a los ejemplos recien dados son las siguientes (mismo orden): \\
 \\
@@ -27,16 +27,16 @@ La sucesión de caracteres representa la solución del problema, es decir, la ro
 
 \subsection{Explicación y pseudocódigo}
 Para resolver el problema diseñamos un algoritmo que consiste en, dado un grupo de exploradoras, generar todas las rondas 
-posibles, e ir almacenando aquella que hasta el momento es la $"$mejor$"$ entre las ya calculadas (con $"$mejor$"$ nos referimos a 
+posibles, e ir almacenando aquella que hasta el momento es la "mejor" entre las ya calculadas (con "mejor" nos referimos a 
 aquella que minimiza la suma de las distancias entre amigas).\\
 Para armar las permutaciones utilizamos la funcion $next$\_$permutation$, perteneciente a la librería standard de c++. Mediante 
 esta funcion vamos generando todas las rondas posibles en orden alfabetico. Entonces, a medida que vamos armando las 
 distintas rondas posibles, calculamos la suma de distancias y luego la compramos con la suma de la que tenemos almacenada. Si 
-la suma de la nueva ronda es menor entonces nos guardamos la nueva, pues es $"$mejor$"$ que la que teníamos. Caso contrario, 
+la suma de la nueva ronda es menor entonces nos guardamos la nueva, pues es "mejor" que la que teníamos. Caso contrario, 
 pasamos a calcular la siguiente ronda, pues si la suma es mayor esa ronda no nos interesa, y si es igual tampoco, porque como
 las rondas se van calculando en orden alfabetico, entonces la que ya tenemos guardada va a estar primera teniendo en cuenta
 dicho orden. \\
-El algoritmo termina una vez que se hayan calculado todas las rondas posibles. La última ronda que quedó guardada va a ser nuestra solución. Por otra parte, la máxima distancia entre dos amigas de la ronda, se calcula en simultáneo con la suma de las distancias, y siempre la almacenamos junto con la $"$mejor$"$ ronda durante todo el algoritmo. \\
+El algoritmo termina una vez que se hayan calculado todas las rondas posibles. La última ronda que quedó guardada va a ser nuestra solución. Por otra parte, la máxima distancia entre dos amigas de la ronda, se calcula en simultáneo con la suma de las distancias, y siempre la almacenamos junto con la "mejor" ronda durante todo el algoritmo. \\
 Para entender mejor la idea dejamos el algoritmo en pseudocódigo:   
 
 --------------------------------------------------------------------------------------------------------------\\
