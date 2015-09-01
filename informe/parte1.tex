@@ -84,8 +84,9 @@ $~~~~~~~~~~~~$devolvemos resTemp \Ode{1} \\
 \subsection{Deducción de la cota de complejidad temporal}
 
 
-Dedujimos que el algoritmo indica cuantas ciudades se pueden conectar para cada ramal en O(n), siendo n la cantidad de estaciones en cada ramal, el algoritmo cuenta con dos whiles independientes. El primer while sirve para ver hasta donde llega el cable desde la ciudad en el km 0. Se ejecuta como mucho n veces, en ese caso (que es cuando el cable es lo suficientemente largo como para conectar todas las ciudades), el segundo while no se ejecutaria pues ya se llego al final, en caso contrario, si no se alcanza la ultima ciudad en el primer ciclo, este segundo ciclo desconecta la primer ciudad y se fija hasta que ciudad se llega ahora, sumandole al cable la distancia correspondiente entre la primer ciudad conectada y la segunda. Se ejecuta como mucho n veces (ese seria el peor caso, que ocurre cuando se da un cable muy corto y en cada iteracion se avanza una o ninguna ciudad) dentro de él hay otro while que se ejecuta mientras que la longitud del cable es positiva y hace lo dicho anteriormente, con la nueva longitud del cable se fija hasta que ciudad se llegaria, por ende mientras mas largo el cable mas ciudades se conectan y se van reduciendo las iteraciones del segundo while, ya que este se ejecutaba hasta que se llegue a la ultima ciudad.\\
-Además usamos las funciones $>$, $<$, $\geq$, $+$, $-$, $==$,  de complejidad constante, la asignación, también O(1), tambien sabemos que por la documentacion de c++ el $operator[]$ de vector es de complejidad O(1) y la función del vector $.back()$ que es también O(1).
+Dedujimos que el algoritmo indica cuantas ciudades se pueden conectar para cada ramal en O(n), siendo n la cantidad de estaciones en cada ramal. Nuestro algoritmo cuenta con dos while independientes: El primer while sirve para ver hasta donde llega el cable empezando por la ciudad del kilómetro 0. Se ejecuta como mucho n veces, en ese caso (que es cuando el cable es lo suficientemente largo como para conectar todas las ciudades), el segundo while no se ejecutara pues ya se llegó al final, en caso contrario, si no se alcanza la última ciudad en el primer ciclo, este segundo ciclo desconecta la primer ciudad y se fija hasta que ciudad se llega ahora, sumándole al cable la distancia correspondiente entre la primer ciudad conectada y la segunda. Se ejecuta como mucho n veces (ese sería el peor caso, que ocurre cuando se da un cable muy corto y en cada iteración se avanza una o ninguna ciudad) dentro de él hay otro while que se ejecuta mientras que la longitud del cable sea positiva y hace lo dicho anteriormente, con la nueva longitud del cable se fija hasta que ciudad se llegaría, por ende mientras más largo el cable más ciudades se conectan y se van reduciendo las iteraciones del segundo while, ya que éste se ejecutaba hasta que se llegue a la última ciudad.\\
+
+Usamos las funciones $>$, $<$, $\geq$, $+$, $-$, $==$, de complejidad constante al igual que las asignaciones. También sabemos por la documentación de C++, que el $operator[]$ del vector es de complejidad O(1) y la función del vector $.back()$ es también O(1).\\
 
 Vamos a mostrar la implementación de un test generado sin ninguna intencionalidad, pero antes explicaremos detalladamente como fue creado. \\
 
@@ -103,7 +104,7 @@ Por otro lado, al hacer $``$ciudad = ciudad + ...$"$ nos aseguramos que los kilo
 
 \end{itemize}
 
-Podemos ver el código de este test implementado en piton acá:
+Podemos ver el código de este test implementado en python acá:
 
 --------------------------------------------------------------------------------\\
 $~~~~~~$file = open('ejemploConNumerosRandom.in', 'w+')\\
