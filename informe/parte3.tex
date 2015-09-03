@@ -31,7 +31,7 @@ posibles, e ir almacenando aquella que hasta el momento es la ``mejor"$ $ entre 
 
 Para armar las permutaciones utilizamos la funcion $next$\_$permutation$, perteneciente a la librería standard de c++. Mediante 
 esta funcion vamos generando todas las rondas posibles en orden alfabetico. Entonces, a medida que vamos armando las 
-distintas rondas posibles, calculamos la suma de distancias y luego la compramos con la suma de la que tenemos almacenada. Si 
+distintas rondas posibles, calculamos la suma de distancias y luego la comparamos con la suma de la que tenemos almacenada. Si 
 la suma de la nueva ronda es menor entonces nos guardamos la nueva, pues es ``mejor"$ $ que la que teníamos. Caso contrario, 
 pasamos a calcular la siguiente ronda, pues si la suma es mayor esa ronda no nos interesa, y si es igual tampoco, porque como
 las rondas se van calculando en orden alfabetico, entonces la que ya tenemos guardada va a estar primera teniendo en cuenta
@@ -61,7 +61,51 @@ otro ciclo interno). Se repite el procedimiento hasta que el vector se recorre c
 
 \subsection{Deducción de la cota de complejidad temporal}
 
-Para la implementación de este ejercicio utilizamos la clase vector de 
+Para la resolución de este ejercicio construimos la clase ronda en c++. La ronda se representa, en la parte privada de la clase,
+mediante un vector$<$char$>$, donde los char representan a las exploradoras y cómo están ubicadas en la ronda. También posee un 
+diccionario(utilizamos $<$map$>$ de la STL de c++), donde están asociadas las exploradoras a sus respectivos grupos de amigas. \\
+La clase cuenta con el constructor por defecto (ronda vacia) y otro constructor que recibe como parámetros un vector$<$char$>$ y un
+vector$<$vector$<$char$>>$; donde el primero representa el conjunto de exploradoras, y el segundo las amigas de cada una (asociadas
+por el orden de los vectores). Como el enunciado del ejercicio permite que mismos grupos de exploradoras sean escritos de distintas 
+formas (por ejemplo a bc;b ac;c ab también se puede escribir como a b;b c;c ab), construimos la función $completarAmigas$ que se 
+encarga de verficar que ninguna amistad esté ausente en la lista de una exploradora, y que estén presentes la totalidad de las 
+exploradoras, cada una con su grupo de amigas. Esta función la utilizamos en el constructor, de manera que se almacene en la parte 
+privada toda la información completa. \\
+La complejidad de $completarAmigas$ es O($e^3$) en el peor caso; y el algoritmo consiste en los siguientes pasos (recibe los mismos 
+parámetros de entrada que el constructor): \\
+\begin{itemize}
+\item Recorrer el vector$<$char$>$ que contiene i exploradoras. \\
+Costo: O($e$) pues como maximo  e = i. 
+\item Por cada una de las exploradoras recorrer su grupo de amigas. \\
+Costo: O($e$) pues como maximo son e - 1 amigas.
+\item Por cada amiga, verificar si está presente en el vector de exploradoras y en caso positivo (si no está presente se agrega, que 
+toma O(1)), verificar si la exploradora i está presente en el grupo de dicha amiga(si no está presente se agrega, que 
+toma O(1)).  \\
+Costo: O($e$) pues son dos busquedas lineales con costo O($e$) en el peor caso cada una.
+\end{itemize}
+Finalmente la ecuación de la complejidad del algoritmo es O($e$) x O($e$) x O($e$) = O($e^3$). \\
+Otra operación pública de nuestra clase es $sumaDistancias$, que devuelve una dupla de enteros, donde la primer componente 
+representa la suma de las distancias entre las exploradoras que son amigas, y la segunda, la mayor distancia entre dos amigas en 
+la ronda. A continuación analizamos la complejidad de $sumaDistancias$: 
+\begin{itemize}
+\item Recorrer el vector$<$char$>$ que contiene a las exploradoras. \\
+Costo: O($e$) pues siempre las rondas tienen e exploradoras.
+\item Por cada exploradora buscar su grupo de amigas en el diccionario y copiarlo a un vector auxiliar. \\
+Costo: O($e$) pues buscar en el diccionario es O(log($e$))(extraido de cppreference.com) y copiarlo es O($e$).
+\item Por cada amiga buscamos su posición en la ronda y calculamos la distancia entre ella y la exploradora a la que le corresponde el vector de amigas que estamos recorriendo. \\
+Costo: O($e$) pues es buscar su posicion linealmente sobre e elementos, y el cálculo es O(1).
+\end{itemize}
+Finalmente la ecuación de la complejidad del algoritmo es O($e$) x O($e$) x O($e$) = O($e^3$). \\
+\\
+Otras operaciones que implementamos en la clase Ronda son: 
+\begin{itemize}
+\item $cambiarOrden$; que cambia las posiciones de las exploradoras en la ronda (lo hace en orden alfabético). Utilizamos la función 
+$next$\_$permutation$ de la STL de c++, por lo que la complejidad es O($e$) en el peor caso(extraido de cppreference.com). 
+\item $ordenAlfabetico$; que ordena la ronda alfabéticamente. Para ello usamos la función $sort$ de la STL, con complejidad
+O($e$ log($e$)) (extraido de cppreference.com).
+\end{itemize}
+
+Ahora analicemos la complejidad de la principal operación del ejercicio
 
 \subsection{Demostración formal}
 El procedimiento que utilizamos resuelve el problema porque, dada una ronda, al combinar las exploradoras de todas las maneras 
