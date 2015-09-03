@@ -70,13 +70,13 @@ int main() {
 
         while (iteraciones <= 100) {
             clock_t startTime = clock();  //empezamos a medir el tiempo
-            vector<int> res = medianas(vec); //f es la cantidad máxima de ciudades conectadas de un ramal.
+            vector<int> res = medianas(vec);
             tiempo_promedio += ((double)clock() - startTime) / (CLOCKS_PER_SEC / 1000); //primero sumo los tiempos de las 100 iteraciones.
             if(iteraciones == 0){
                 for(int i = 0; i<res.size(); i++){
                     out << res[i] << " ";
                 }
-                out << endl; //en el archivo de salida guardo una vez la cantidad maxima de ciudades conectadas del ramal.
+                out << endl;
             }
             iteraciones++;
         }
