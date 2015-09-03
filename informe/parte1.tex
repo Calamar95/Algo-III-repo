@@ -81,12 +81,15 @@ $~~~~~~~~~~~~$\} \\
 $~~~~~~~~~~~~$devolvemos resTemp \Ode{1} \\
 \}\\
 
-\subsection{Deducción de la cota de complejidad temporal}
+\subsection{Deducción de la cota de complejidad temporal y correctitud}
 
 
-Dedujimos que el algoritmo indica cuantas ciudades se pueden conectar para cada ramal en O(n), siendo n la cantidad de estaciones en cada ramal. Nuestro algoritmo cuenta con dos while independientes: El primer while sirve para ver hasta donde llega el cable empezando por la ciudad del kilómetro 0. Se ejecuta como mucho n veces, en ese caso (que es cuando el cable es lo suficientemente largo como para conectar todas las ciudades), el segundo while no se ejecutara pues ya se llegó al final, en caso contrario, si no se alcanza la última ciudad en el primer ciclo, este segundo ciclo desconecta la primer ciudad y se fija hasta que ciudad se llega ahora, sumándole al cable la distancia correspondiente entre la primer ciudad conectada y la segunda. Se ejecuta como mucho n veces (ese sería el peor caso, que ocurre cuando se da un cable muy corto y en cada iteración se avanza una o ninguna ciudad) dentro de él hay otro while que se ejecuta mientras que la longitud del cable sea positiva y hace lo dicho anteriormente, con la nueva longitud del cable se fija hasta que ciudad se llegaría, por ende mientras más largo el cable más ciudades se conectan y se van reduciendo las iteraciones del segundo while, ya que éste se ejecutaba hasta que se llegue a la última ciudad.\\
+Dedujimos que el algoritmo indica cuantas ciudades se pueden conectar para cada ramal en O(n), siendo n la cantidad de estaciones en cada ramal. Nuestro algoritmo cuenta con dos whiles independientes el uno del otro. El primer while sirve para ver hasta donde llega el cable empezando por la ciudad del kilómetro 0. Se ejecuta como mucho n veces, en ese caso (que es cuando el cable es lo suficientemente largo como para conectar todas las ciudades), el segundo while no se ejecutara pues ya se llegó al final, en caso contrario, si no se alcanza la última ciudad en el primer ciclo, este segundo ciclo desconecta la primer ciudad y se fija hasta que ciudad se llega ahora, sumándole al cable la distancia correspondiente entre la primer ciudad conectada (que es la que se va a sacar) y la segunda. Se ejecuta como mucho n veces (ese sería el peor caso, que ocurre cuando se da un cable muy corto y en cada iteración se avanza una o ninguna ciudad) dentro de él hay otro while que se ejecuta mientras que la longitud del cable sea positiva y hace lo dicho anteriormente, con la nueva longitud del cable se fija hasta que ciudad se llegaría, por ende mientras más largo el cable más ciudades se conectan y se van reduciendo las iteraciones del segundo while, ya que éste se ejecutaba hasta que se llegue a la última ciudad.\\
 
 Usamos las funciones $>$, $<$, $\geq$, $+$, $-$, $==$, de complejidad constante al igual que las asignaciones. También sabemos por la documentación de C++, que el $operator[]$ del vector es de complejidad O(1) y la función del vector $.back()$ es también O(1).\\
+
+El algoritmo es correcto porque empieza viendo cuantas ciudades se conectan desde la ciudad en el km 0, sunpongamos que llega hasta la ciudad k la cual no es la ultima, pues si o fuera el algoritmo ya hubiera temrinado. Entonces tenemos k+1 ciudades conectadas. Luego quita la ciudad en el km0 y añade al cable la distancia entre esa ciudad y la siguiente, (ciudad 1) , suma esa dijferencia a lo que habia sobrado de cable y se fija si se pueden conectar mas ciudades, continuando desde la ciudad k, cuando ya no se pueden conectar mas ciudades, se fija cuantas conecto desde la ciudad uno hasta la ultima ciudad que pudo conectar y si el numero de ciudades conectadas es mayor a k+1 se guarda este nuevo valor. El proceso re repite hasta que se llega a la ultima ciudad. Cuando se llega a la ultima ciudad, el algoritmo devuelve el valor guardado con la cantidad maxima de ciudades que se puedieron conectar en algun momento
+
 
 Vamos a mostrar la implementación de un test generado sin ninguna intencionalidad, pero antes explicaremos detalladamente como fue creado. \\
 
@@ -162,5 +165,3 @@ Con estos tiempos creamos el gráfico de la figura \ref{ej1-tiempo-vs-cant-ciuda
 \end{center}
 \end{figure}
 
-\subsection{Demostración formal}
-\subsection{Experimentaciones}
