@@ -30,7 +30,7 @@ Para resolver el problema diseñamos un algoritmo que consiste en, dado un grupo
 posibles, e ir almacenando aquella que hasta el momento es la ``mejor"$ $ entre las ya calculadas (con ``mejor"$ $ nos referimos a aquella que minimiza la suma de las distancias entre amigas).\\
 
 Para armar las permutaciones utilizamos la funcion $next$\_$permutation$, perteneciente a la librería standard de c++. Mediante 
-esta funcion vamos generando todas las rondas posibles en orden alfabetico. Entonces, a medida que vamos armando las 
+esta funcion vamos generando todas las rondas posibles en orden alfabético. Entonces, a medida que vamos armando las 
 distintas rondas posibles, calculamos la suma de distancias y luego la comparamos con la suma de la que tenemos almacenada. Si 
 la suma de la nueva ronda es menor entonces nos guardamos la nueva, pues es ``mejor"$ $ que la que teníamos. Caso contrario, 
 pasamos a calcular la siguiente ronda, pues si la suma es mayor esa ronda no nos interesa, y si es igual tampoco, porque como
@@ -40,20 +40,27 @@ dicho orden. \\
 El algoritmo termina una vez que se hayan calculado todas las rondas posibles. La última ronda que quedó guardada va a ser nuestra solución. Por otra parte, la máxima distancia entre dos amigas de la ronda, se calcula en simultáneo con la suma de las distancias, y siempre la almacenamos junto con la ``mejor"$ $ ronda durante todo el algoritmo. \\
 
 Para entender mejor la idea dejamos el algoritmo en pseudocódigo:\\   
-
 --------------------------------------------------------------------------------------------------------------\\
-tupla$<$int, vector$<$char$>$ $>$ mejorRonda(vector$<$char$>$ exploradoras, vector$<$vector$<$char$>>$ amigas)\{ \\
-$~~~~~~~~$crear tupla$<$int, int$>$ sumaMinima\Ode{tamaño de a} \\
-$~~~~~~~~$crear vector$<$char$>$ rondaOptima \Ode{tamaño de a} \\
-$~~~~~~~~$ordenar alfabeticamente exploradoras \Ode{1} \\
-$~~~~~~~~$rondaOptima $\leftarrow$ posibles\Ode{1} \\
-$~~~~~~~~$sumaMinima $\leftarrow$ calcularSuma(rondaOptima, exp, amigas) \Ode{1} \\
-$~~~~~~~~$maxDist $\leftarrow$ maximaDistancia(rondaOptima, exp, amigas)\Ode{1} \\
-$~~~~~~~~$\textbf{mientras} (hay nueva permutacion de posibles) \{ \Ode{1} \\
-$~~~~~~~~~~~~$crear int nuevaSuma $\leftarrow$ calcularSuma(posibles, exp, amigas) \Ode{1} \\
-$~~~~~~~~~~~~$\textbf{si} calcularSuma(posibles, exp, amigas) \Ode{1} \\
-\\
-
+mejorRonda (dado un conjunto de exploradoras (exp) y sus amistades) \\
+$~~~~~~~~$crear int sumaMinima \\
+$~~~~~~~~$crear int maxDist \\
+$~~~~~~~~$crear Ronda rondaOptima  \\
+$~~~~~~~~$ordenar alfabeticamente exp \\
+$~~~~~~~~$rondaOptima $\leftarrow$ exp \\
+$~~~~~~~~$sumaMinima $\leftarrow$ calcular suma de distancias de rondaOptima  \\
+$~~~~~~~~$maxDist $\leftarrow$ calcular maxima distancia entre 2 amigas en rondaOptima \\
+$~~~~~~~~$\textbf{mientras} (hay nueva permutacion de exp) \{ \\
+$~~~~~~~~~~~~$crear int nuevaSuma $\leftarrow$ calcular suma de distancias de exp  \\
+$~~~~~~~~~~~~$crear int nuevaDist $\leftarrow$ calcular maxima distancia entre 2 amigas en exp  \\
+$~~~~~~~~~~~~$\textbf{si} (nuevaSuma $<$ sumaMinima) \{ \\
+$~~~~~~~~~~~~~~~~$ sumaMinima $\leftarrow$ nuevaSuma \\
+$~~~~~~~~~~~~~~~~$ maxDist $\leftarrow$ nuevaDist \\
+$~~~~~~~~~~~~~~~~$ rondaOptima $\leftarrow$ exp \\
+$~~~~~~~~~~~~$\} \\
+$~~~~~~~~$ \} \\
+$~~~~~~~~$ exp $\leftarrow$ rondaOptima\\
+$~~~~~~~~$ devolver maxDist\\
+--------------------------------------------------------------------------------------------------------------\\ \\
 El calculo de la suma de las distancias lo hacemos mediante un algoritmo iterativo que, lo que hace, es recorrer el vector
 (que representa a la ronda), y para cada exploradora calcula cuál es la ditancia entre ella y cada una de sus amigas (mediante 
 otro ciclo interno). Se repite el procedimiento hasta que el vector se recorre completamente, y así obtenemos la suma de las distancias.  
@@ -61,7 +68,7 @@ otro ciclo interno). Se repite el procedimiento hasta que el vector se recorre c
 
 \subsection{Deducción de la cota de complejidad temporal}
 
-Para la resolución de este ejercicio construimos la clase ronda en c++. La ronda se representa, en la parte privada de la clase,
+Para la resolución de este ejercicio construimos la clase Ronda en c++. La ronda se representa, en la parte privada de la clase,
 mediante un vector$<$char$>$, donde los char representan a las exploradoras y cómo están ubicadas en la ronda. También posee un 
 diccionario(utilizamos $<$map$>$ de la STL de c++), donde están asociadas las exploradoras a sus respectivos grupos de amigas. \\
 La clase cuenta con el constructor por defecto (ronda vacia) y otro constructor que recibe como parámetros un vector$<$char$>$ y un
@@ -104,8 +111,36 @@ $next$\_$permutation$ de la STL de c++, por lo que la complejidad es O($e$) en e
 \item $ordenAlfabetico$; que ordena la ronda alfabéticamente. Para ello usamos la función $sort$ de la STL, con complejidad
 O($e$ log($e$)) (extraido de cppreference.com).
 \end{itemize}
+Ahora analicemos la complejidad de la principal operación del ejercicio, a la cual llamamos $mejorRonda$, que modifica la Ronda de manera
+tal que minimice la suma de las distancias entre amigas, y devuelve la maxima distancia entre dos amigas en la ronda solución: 
+\begin{itemize}
+\item Ordenamos la ronda mediante $ordenAlfabetico$. \\
+Costo: O($e$ log($e$))
+\item Hacemos $sumaDistancias$ sobre la ronda ordenada, y guardamos los valores en una dupla de enteros.\\
+Costo: O($e^3$)
+\item Copiamos la ronda actual en una nueva variable. \\
+Costo: O($e$)
+\item Hacemos un ciclo que finaliza cuando hayamos generado todas las permutaciones posibles de la ronda. \\
+Costo: O($e!$) (cantidad de iteraciones)
+\item Por cada iteracion del ciclo realizamos lo siguiente (en el peor de los casos):\\
+-$cambiarOrden$ (toma O($e$)) \\
+-$sumaDistancias$ (toma O($e^3$)) \\
+-Copiamos una ronda (toma O($e$))
+\item Copiamos la mejor ronda en la parte privada de la Ronda. \\
+Costo: O($e$)
+\item Copiamos un entero a una nueva variable. \\
+Costo: O(1)
+\end{itemize}
+Entonces, la complejidad de la función es:\\
+O($e$ log($e$)) + O($e^3$) + O($e$) + O($e!$) x \big( O($e$) + O($e^3$) + O($e$) \big) + O($e$) + O(1) 
 
-Ahora analicemos la complejidad de la principal operación del ejercicio
+
+
+
+
+
+
+
 
 \subsection{Demostración formal}
 El procedimiento que utilizamos resuelve el problema porque, dada una ronda, al combinar las exploradoras de todas las maneras 

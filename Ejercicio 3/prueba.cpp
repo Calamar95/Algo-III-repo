@@ -1,6 +1,6 @@
 using namespace std;
 #include <vector>
-#include <tuple>
+//#include <tuple>
 #include <iostream>
 #include <algorithm>
 #include <sys/time.h>
@@ -69,15 +69,17 @@ bool pertenece (vector<char> v , char e) {	//O(n)
 	return !noEncontrado;							//O(1)
 }
 
+//GENERADOR DE k ENTRADAS DE HASTA  i EXPLORADORAS CADA UNA
+
 int main(){
 	
 	ofstream out;
-   	out.open("tests.in");
+   	out.open("testsAleatorios.in");
 
 	for (int k = 0; k < 14; k++){
 		vector<char> v;
 		int i = 0;
-		while (i < 4) {
+		while (i < 10) {
 			int n = rand() % 26 + 97;
 			if ( pertenece(v, char(n)) ) {
 				i++;
