@@ -26,12 +26,12 @@ vector<int> medianas(vector<int> a){
         }
         if (masGrandes.size() - masChicos.size() == 2){
             minimo = *masGrandes.begin();
-            masGrandes.erase(minimo);
             masChicos.insert(minimo);
+            masGrandes.erase(masGrandes.find(minimo));
         } else if (masGrandes.size() - masChicos.size() == -2){
             maximo = *masChicos.rbegin();
-            masChicos.erase(maximo);
             masGrandes.insert(maximo);
+            masChicos.erase(masChicos.find(maximo));
         }
         if (masGrandes.size() == masChicos.size()){
             minimo = *masGrandes.begin();
@@ -88,6 +88,8 @@ int main() {
 
     }
     out.close();
+    
 
+    
     return 0;
 }
