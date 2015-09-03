@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import random
 
-#file = open('ejemploConNumerosRandom.in', 'w+')
+#file = open('1erEjemploConNumerosRandom.in', 'w+')
 #file2 = open('ejemploTamCiudades.txt', 'w+')
 
 #for x in xrange(1,10000, 100):
@@ -19,7 +19,7 @@ import random
 
 #file2.close()
 
-file = open('ejemploCableCorto.in', 'w+')
+file = open('2doEjemploCableCorto.in', 'w+')
 file2 = open('ejemploTamCiudades.txt', 'w+')
 
 for x in xrange(1,10000, 100):
