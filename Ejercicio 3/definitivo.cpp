@@ -6,7 +6,8 @@ using namespace std;
 #include <sstream>
 #include <fstream>
 #include <map>
-#include <sys/time.h>
+#include <time.h>
+//#include <stdio.h>
 
 
 
@@ -247,27 +248,15 @@ bool Ronda::perteneceConPos (vector<char> v , char e, int& posicion) { //O(n)
 // n = longitud del vector v
 
 //**************************************************************************
-/*
-	timeval start;
-	timeval end;
 
-void init_time()
-{
-    gettimeofday(&start,NULL);
-}
-
-double get_time()
-{
-    gettimeofday(&end,NULL);
-    return (1000000*(end.tv_sec-start.tv_sec)+(end.tv_usec-start.tv_usec))/1000000.0;
-}
-*/
 int main() {
 
 
 	ifstream in("Tp1Ej3.in");
  	ofstream out;
    	out.open("resultados.out");
+   	int iteraciones = 0;
+	double tiempo_promedio = 0;
 	
 
 	while(in.good()) {
@@ -291,24 +280,71 @@ int main() {
 			}
 			amigas.push_back(v);  
 		}
-		Ronda r(exploradoras, amigas);
-		int res = r.mejorOrden();
-		out << res << " ";
-		vector<char> aux = r.rondaActual();
-		for (int i = 0; i < aux.size(); i++) {
-			out << aux[i];
-		}
-		out << endl;
 		
+		
+		int iteraciones = 1;
+		double tiempo_promedio = 0;
+
+		while (iteraciones <= 100) {
+			clock_t startTime = clock();  //empezamos a medir el tiempo
+
+			Ronda r(exploradoras, amigas);
+			int res = r.mejorOrden();
+
+			tiempo_promedio = ((double)clock() - startTime) / (CLOCKS_PER_SEC / 1000); //primero sumo los tiempos de las 100 iteraciones.
+			if (iteraciones == 1) {
+				out << res << " ";
+				vector<char> aux = r.rondaActual();
+				for (int i = 0; i < aux.size(); i++) {
+					out << aux[i];
+				}	
+				out << endl;
+			}
+
+			iteraciones++;
+	    }
+
+
+
+	    tiempo_promedio = tiempo_promedio/100.0; //calculo el promedio del tiempo de las 100 iteraciones en milisegundos.
+	    printf("%f \n", tiempo_promedio);  //se descomenta para saber los tiempos promedios para el gráfico.
+
+
+
+
+	    tiempo_promedio = 0.0;
+	    iteraciones = 0;
 
 	}
 	out.close();
-
-
 
 }
 
 
 
+/*
+int iteraciones = 0;
+double tiempo_promedio = 0;
+
+while (iteraciones <= 100) {
+			clock_t startTime = clock();  //empezamos a medir el tiempo
+
+			int j = 1; //f es la cantidad máxima de ciudades conectadas de un ramal.
+
+			tiempo_promedio += ((double)clock() - startTime) / (CLOCKS_PER_SEC / 1000); //primero sumo los tiempos de las 100 iteraciones.
+			 printf("%f \n", tiempo_promedio);
+			iteraciones++;
+	    }
 
 
+
+	    tiempo_promedio = tiempo_promedio/100.0; //calculo el promedio del tiempo de las 100 iteraciones en milisegundos.
+	    printf("%f \n", tiempo_promedio);  //se descomenta para saber los tiempos promedios para el gráfico.
+
+
+
+
+	    tiempo_promedio = 0.0;
+	    iteraciones = 0;
+
+*/
