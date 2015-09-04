@@ -27,11 +27,11 @@ vector<int> medianas(vector<int> a){
         if (masGrandes.size() - masChicos.size() == 2){
             minimo = *masGrandes.begin();
             masChicos.insert(minimo);
-            masGrandes.erase(masGrandes.find(minimo));
+            masGrandes.erase(masGrandes.find(minimo)); // Aclaracion: utilizamos la funcion find de multiset para encontrar el iterador que contiene al maximo o minimo y asi poder borrarlo, ya que la funcion erase al pasarle como parametro un numero, borra todas sus repeticiones. La complejidad de find es O(log n) con lo cual no modifica la complejidad de nuestro algoritmo
         } else if (masGrandes.size() - masChicos.size() == -2){
             maximo = *masChicos.rbegin();
             masGrandes.insert(maximo);
-            masChicos.erase(masChicos.find(maximo));
+            masChicos.erase(masChicos.find(maximo));  
         }
         if (masGrandes.size() == masChicos.size()){
             minimo = *masGrandes.begin();

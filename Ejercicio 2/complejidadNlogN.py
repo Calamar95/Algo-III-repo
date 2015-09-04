@@ -5,7 +5,7 @@ import math
 
 file = open('complejidadNlogN.txt', 'w+')
 
-for x in xrange(1, 100, 1):
-		file.write(str(x*math.log(x)/50) + ' ' +'\n')
+for x in xrange(1, 10000, 100):
+		file.write(str(x*math.log10(x)/6000) + ' ' +'\n')
 
 file.close()
