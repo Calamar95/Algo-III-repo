@@ -60,7 +60,9 @@ $~~~~~~~~~~~~~~~~~~~~$conectadas  $\leftarrow$ 0; \Ode{1}\\
 $~~~~~~~~~~~~~~~~~~~~$incrementamos start en 1;  \Ode{1}\\
 $~~~~~~~~~~~~~~~~~~~~$incrementamos actual en 1;  \Ode{1}\\
 $~~~~~~~~~~~~~~~$\} \textbf{si no} \{ \\
-$~~~~~~~~~~~~~~~~~~~~$decrementamos conectadas en 1;\Ode{1}\\ 
+$~~~~~~~~~~~~~~~~~~~~$\textbf{si}(conectadas $>$ 0)\{ \\ \IfOde{1}\\
+$~~~~~~~~~~~~~~~~~~~~~~~~~$decrementamos conectadas en 1;\Ode{1}\\ 
+$~~~~~~~~~~~~~~~~~~~~$\}
 $~~~~~~~~~~~~~~~~~~~~$a longitud del cable le sumamos (v[start+1]-v[start]);\Ode{1}\\
 $~~~~~~~~~~~~~~~~~~~~$incrementamos start en 1;  \Ode{1}\\
 $~~~~~~~~~~~~~~~$\} \\
@@ -70,6 +72,9 @@ $~~~~~~~~~~~~~~~~~~~~$a longitud del cable  le restamos (v[actual+1]- v[actual])
 $~~~~~~~~~~~~~~~~~~~~$\textbf{si} (longitud del cable $\geq$ 0) \{ \\ \IfOde{1}\\
 $~~~~~~~~~~~~~~~~~~~~~~~~~~$incrementamos conectadas en 1  \Ode{1}\\
 $~~~~~~~~~~~~~~~~~~~~~~~~~~$incrementamos actual en 1  \Ode{1}\\
+$~~~~~~~~~~~~~~~~~~~~$\} \\
+$~~~~~~~~~~~~~~~~~~~~$\textbf{si} (conectadas == 1)\{ \\ \IfOde{1} \\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~$conectadas $\leftarrow$ 2 \\
 $~~~~~~~~~~~~~~~~~~~~$\} \\
 $~~~~~~~~~~~~~~~~$\} \\
 $~~~~~~~~~~~~~~~~$\textbf{si} (longitud del cable $<$ 0 ) \{ \\ \IfOde{1}\\
