@@ -90,12 +90,13 @@ $~~~~~~~~~~~~$\} \\
 $~~~~~~~~~~~~$devolvemos resTemp \Ode{1} \\
 \}\\
 
-\subsection{Deducción de la cota de complejidad temporal y correctitud}
-
+\subsection{Deducción de la cota de complejidad temporal}
 
 Dedujimos que el algoritmo indica cuantas ciudades se pueden conectar para cada ramal en O(n), siendo n la cantidad de estaciones en cada ramal. Nuestro algoritmo cuenta con dos whiles independientes el uno del otro. El primer while sirve para ver hasta donde llega el cable empezando por la ciudad del kilómetro 0. Se ejecuta como mucho n veces, en ese caso (que es cuando el cable es lo suficientemente largo como para conectar todas las ciudades), el segundo while no se ejecutara pues ya se llegó al final, en caso contrario, si no se alcanza la última ciudad en el primer ciclo, este segundo ciclo desconecta la primer ciudad y se fija hasta que ciudad se llega ahora, sumándole al cable la distancia correspondiente entre la primer ciudad conectada (que es la que se va a sacar) y la segunda. Se ejecuta como mucho n veces (ese sería el peor caso, que ocurre cuando se da un cable muy corto y en cada iteración se avanza una o ninguna ciudad) dentro de él hay otro while que se ejecuta mientras que la longitud del cable sea positiva y hace lo dicho anteriormente, con la nueva longitud del cable se fija hasta que ciudad se llegaría, por ende mientras más largo el cable más ciudades se conectan y se van reduciendo las iteraciones del segundo while, ya que éste se ejecutaba hasta que se llegue a la última ciudad.\\
 
 Usamos las funciones $>$, $<$, $\geq$, $+$, $-$, $==$, de complejidad constante al igual que las asignaciones. También sabemos por la documentación de C++, que el $operator[]$ del vector es de complejidad O(1) y la función del vector $.back()$ es también O(1).\\
+
+\subsection{Casos de test y sus gráficos}
 
 Vamos a mostrar la implementación de un test generado sin ninguna intencionalidad, pero antes explicaremos detalladamente como fue creado. \\
 
@@ -164,21 +165,34 @@ El próximo test generado consiste en tener una longitud de cable muy chica, la 
 
 En la figura \ref{ej1-tiempo-vs-cant-ciudades-random-long-cable-1} vemos como nuestro algoritmo sigue respentando el límite de complejidad propuesto por la cátedra, a pesar de que éste sea un caso ``border". \\
 
-Otro test que decidimos hacer fue el caso contrario a este, que sería tener un cable demasiado largo, que permita conectar todas las ciudades de los ramales. Por lo tanto, escribimos un script de manera tal que la cantidad de kilómetros de cable siempre supere la distancia entre la primera ciudad y la ciudad del último kilómetro del ramal. Al medir los tiempos promedios para esto vemos que nuestro algoritmo sigue tardando menos que O(n), y lo podemos ver en la figura que sigue, \ref{ej1-tiempo-vs-cant-ciudades-random-long-cable-larga}. \\
+Otro test que decidimos hacer fue el caso contrario a este, que sería tener un cable demasiado largo, que permita conectar todas las ciudades de los ramales. Por lo tanto, escribimos un script de manera tal que la cantidad de kilómetros de cable siempre supere la distancia entre la primera ciudad y la ciudad del último kilómetro del ramal. Al medir los tiempos promedios para esto vemos que nuestro algoritmo sigue tardando menos que O(n), y lo podemos ver en la figura que sigue, \ref{ej1-tiempo-vs-cant-ciudades-random-long-cable-largo}. \\
 
 \begin{figure}[H]
 \begin{center}
 
 \minipage{0.8\textwidth}
   \includegraphics[width=\linewidth]{../graficos/ej1/CableLargo.png}
-  \caption{{\small Comparación con O(n). Dado un archivo de entrada con un cable muy largo y kilometrajes de estaciones random.}} \label{ej1-tiempo-vs-cant-ciudades-random-long-cable-larga}
+  \caption{{\small Comparación con O(n). Dado un archivo de entrada con un cable muy largo y kilometrajes de estaciones random.}} \label{ej1-tiempo-vs-cant-ciudades-random-long-cable-largo}
 \endminipage
 
 \end{center}
 \end{figure}
 
 
-Decimos también que el algoritmo propuesto es \textbf{correcto} porque además de hacer estos tests para ver si cumplen las complejidades, vemos con ejemplos de cada uno de ellos (mostrados a continuación) que el algoritmo devuelve lo que debe.\\
+\begin{figure}[H]
+\begin{center}
+
+\minipage{0.8\textwidth}
+  \includegraphics[width=\linewidth]{../graficos/ej1/PrimerasCiudades.png}
+  \caption{{\small Comparación con O(n). Dado un archivo de entrada donde entre las primeras ciudades hay una distancia corta.}} \label{ej1-tiempo-vs-cant-ciudadades-primeras-ciudades}
+\endminipage
+
+\end{center}
+\end{figure}
+
+\subsection{Deducción de correctitud del algoritmo}
+
+Decimos también que el algoritmo propuesto es \textbf{correcto} porque además de hacer los tests para ver si cumplen las complejidades, vemos con ejemplos de cada uno de ellos (mostrados a continuación) que el algoritmo devuelve lo que debe.\\
 
 \begin{itemize}
 \item Caso a: La longitud del cable no alcanza para conectar ninguna ciudad:\\
