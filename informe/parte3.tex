@@ -79,61 +79,101 @@ encarga de verficar que ninguna amistad esté ausente en la lista de una explora
 exploradoras, cada una con su grupo de amigas. Esta función la utilizamos en el constructor, de manera que se almacene en la parte 
 privada toda la información completa. \\
 A continuación analizamos paso a paso la complejidad temporal de las funciones que implementamos. Para ello, tener en cuenta que 
-$e$ representa la cantidad de exploradoras de cada grupo, y $a$, la cantidad de amistades. \\
-La complejidad de $completarAmigas$ es O($e^3$) en el peor caso; y el algoritmo consiste en los siguientes pasos (recibe los mismos parámetros de entrada que el constructor): \\
+$e$ representa la cantidad de exploradoras de cada grupo. \\
+La complejidad de $completarAmigas$ es O(e$^3$) en el peor caso; y el algoritmo consiste en los siguientes pasos (recibe los mismos parámetros de entrada que el constructor): \\
 \begin{itemize}
 \item Recorrer el vector$<$char$>$ que contiene i exploradoras. \\
-Costo: O($e$) pues como maximo  e = i. 
+Costo: O(e) pues como maximo  e = i. 
 \item Por cada una de las exploradoras recorrer su grupo de amigas. \\
-Costo: O($e$) pues como maximo son e - 1 amigas.
+Costo: O(e) pues como maximo son e - 1 amigas.
 \item Por cada amiga, verificar si está presente en el vector de exploradoras y en caso positivo (si no está presente se agrega, que 
 toma O(1)), verificar si la exploradora i está presente en el grupo de dicha amiga(si no está presente se agrega, que 
 toma O(1)).  \\
-Costo: O($e$) pues son dos busquedas lineales con costo O($e$) en el peor caso cada una.
+Costo: O(e) pues son dos busquedas lineales con costo O(e) en el peor caso cada una.
 \end{itemize}
-Finalmente la ecuación de la complejidad del algoritmo es O($e$) x O($e$) x O($e$) = O($e^3$). \\
+Finalmente la ecuación de la complejidad del algoritmo es O(e) x O(e) x O(e) = O(e$^3$). \\
 Otra operación pública de nuestra clase es $sumaDistancias$, que devuelve una dupla de enteros, donde la primer componente 
 representa la suma de las distancias entre las exploradoras que son amigas, y la segunda, la mayor distancia entre dos amigas en 
 la ronda. A continuación analizamos la complejidad de $sumaDistancias$: 
 \begin{itemize}
 \item Recorrer el vector$<$char$>$ que contiene a las exploradoras. \\
-Costo: O($e$) pues siempre las rondas tienen e exploradoras.
+Costo: O(e) pues siempre las rondas tienen e exploradoras.
 \item Por cada exploradora buscar su grupo de amigas en el diccionario y copiarlo a un vector auxiliar. \\
-Costo: O($e$) pues buscar en el diccionario es O(log($e$))(extraido de cppreference.com) y copiarlo es O($e$).
+Costo: O(e) pues buscar en el diccionario es O(log(e))(extraido de cppreference.com) y copiarlo es O(e).
 \item Por cada amiga buscamos su posición en la ronda y calculamos la distancia entre ella y la exploradora a la que le corresponde el vector de amigas que estamos recorriendo. \\
-Costo: O($e$) pues es buscar su posicion linealmente sobre e elementos, y el cálculo es O(1).
+Costo: O(e) pues es buscar su posicion linealmente sobre e elementos, y el cálculo es O(1).
 \end{itemize}
-Finalmente la ecuación de la complejidad del algoritmo es O($e$) x O($e$) x O($e$) = O($e^3$). \\
+Finalmente la ecuación de la complejidad del algoritmo es O(e) x O(e) x O(e) = O(e$^3$). \\
 \\
 Otras operaciones que implementamos en la clase Ronda son: 
 \begin{itemize}
 \item $cambiarOrden$; que cambia las posiciones de las exploradoras en la ronda (lo hace en orden alfabético). Utilizamos la función 
-$next$\_$permutation$ de la STL de c++, por lo que la complejidad es O($e$) en el peor caso(extraido de cppreference.com). 
+$next$\_$permutation$ de la STL de c++, por lo que la complejidad es O(e) en el peor caso(extraido de cppreference.com). 
 \item $ordenAlfabetico$; que ordena la ronda alfabéticamente. Para ello usamos la función $sort$ de la STL, con complejidad
-O($e$ log($e$)) (extraido de cppreference.com).
+O(e log(e)) (extraido de cppreference.com).
+\item $amigasDe$; que devuelve un vector que contiene a las amigas de la exploradora ingresada como parámetro(O(e)).
+\item $rondaActual$; que devuelve un esquema de la ronda, mediante un vector (O(e)).
+\item $imprimirRonda$ e $imprimirAmistades$; imprimen en consola las ronda y conjunto de amistades respectivamente (utilizadas
+principalmente para la prueba y desarollo del trabajo práctico).  
 \end{itemize}
 Ahora analicemos la complejidad de la principal operación del ejercicio, a la cual llamamos $mejorRonda$, que modifica la Ronda de manera
 tal que minimice la suma de las distancias entre amigas, y devuelve la maxima distancia entre dos amigas en la ronda solución: 
 \begin{itemize}
 \item Ordenamos la ronda mediante $ordenAlfabetico$. \\
-Costo: O($e$ log($e$))
+Costo: O(e log(e))
 \item Hacemos $sumaDistancias$ sobre la ronda ordenada, y guardamos los valores en una dupla de enteros.\\
-Costo: O($e^3$)
+Costo: O(e$^3$)
 \item Copiamos la ronda actual en una nueva variable. \\
-Costo: O($e$)
+Costo: O(e)
 \item Hacemos un ciclo que finaliza cuando hayamos generado todas las permutaciones posibles de la ronda. \\
-Costo: O($e!$) (cantidad de iteraciones)
+Costo: O(e!) (cantidad de iteraciones)
 \item Por cada iteracion del ciclo realizamos lo siguiente (en el peor de los casos):\\
--$cambiarOrden$ (toma O($e$)) \\
--$sumaDistancias$ (toma O($e^3$)) \\
--Copiamos una ronda (toma O($e$))
+-$cambiarOrden$ (toma O(e)) \\
+-$sumaDistancias$ (toma O(e$^3$)) \\
+-Copiamos una ronda (toma O(e))
 \item Copiamos la mejor ronda en la parte privada de la Ronda. \\
-Costo: O($e$)
+Costo: O(e)
 \item Copiamos un entero a una nueva variable. \\
 Costo: O(1)
 \end{itemize}
-Entonces, la complejidad de la función es:\\
-O($e$ log($e$)) + O($e^3$) + O($e$) + O($e!$) x \big( O($e$) + O($e^3$) + O($e$) \big) + O($e$) + O(1) 
+Entonces, la complejidad de la función es:\\ \\
+$\underbrace{O(e \ log(e)) + O(e^3) + O(e)}_{O(e^3)\;}$ + $\underbrace{ O(e!) x \big( O(e) + O(e^3) + O(e) \big) }_{O(e! e^3) \;}$+
+$\underbrace {O(e) + O(1)}_{O(e)\;}$ \\ \\
+O(e$^3$) + O(e! e$^3$) + O(e) = O(e! e$^3$) \\
+\\
+Ahora, demostraremos que la complejidad de nuestro algoritmo cumple con la cota dada: \\
+\\
+Aclaraciones: si bien $completarAmigas$ y $mejorRonda$ son dos operaciones distintas en nuestro proyecto, ambas forman parte de la
+solución del ejercicio, por lo tanto para demostrar que cumplimos con la cota dada en el enunciado, tenemos en cuenta las complejidades 
+de las dos operaciones (de todas formas, la complejidad teórica no cambia).\\
+\\
+O(e! e$^3$) + O(e$^3$) = O(e! e$^3$) \\ \\
+Por otro lado, podemos observar que en la complejidad de ninguna de las funciones aparece la variable $a$, que representa la cantidad
+de amistades en el grupo de amigas. Esto es porque la acotamos por e$^2$, pues la maxima cantidad de amistades posibles entre $e$
+exploradoras es \\ (e-1).(e) / 2 que es menor o igual que e$^2$.\\
+\\
+Hechas las aclaraciones, comenzamos con la demostración: \\
+\begin{itemize}
+\item Queremos ver que O(e! e$^3$) $\subseteq$ O(e$^e$ $a^2$)
+\item Para demostrarlo, probemos que e! e$^3$ $\in$ O(e$^e$ $a^2$) (pues si f $\in$ O(g) $\Rightarrow$ O(f) $\subseteq$ O(g) )
+\item Por definicion de O; e! e$^3$ $\in$ O(e$^e$ $a^2$) $\Leftrightarrow$ $\exists$ $n_{0}$ $>$ 0,  c $>$ 0  $/$ $\forall$ (n $>$ $n_
+{0}$) e! e$^3$ $\leq$ c e$^e$ $a^2$ 
+\item Entonces, veamos que e! e$^3$ $\leq$ c e$^e$ $a^2$  $\forall$ (n $>$ $n_{0}$)
+\item Y para probar lo anterior basta con ver que e! e$^3$ $\leq$ c e$^e$ $\forall$ (n $>$ $n_{0}$): \\
+e! = $\underbrace{1.2.3........e}_{e \ productos\;}$ $\leq$ $\underbrace{e.e.e........e}_{e \ productos\;}$ = e$^e$ \\ \\
+Sabemos que la anterior desigualdad es cierta, pues todos los factores de la multiplicación del lado izquierdo son menores o iguales que 
+los del lado derecho. \\
+Entonces e! e$^3$ = $\underbrace{1.2.3........e}_{e \ productos\;}$ .  e$^3$ $\leq$ c. $\underbrace{e.e.e........e}_{e \ productos\;}$ = c e$^e$ (¿Vale esto?) \\
+Si, pues si acomodamos un poco los productos, y tomamos c = 1.2.3 = 6 nos queda que: \\
+e! e$^3$ = 6. $\underbrace{4.5.6........e.e.e.e}_{e \ productos\;}$ $\leq$ 6. $\underbrace{e.e.e........e}_{e \ productos\;}$ = c e$^e$ \\
+Y con el mismo razonamiento de antes (todos los factores de la multiplicación del lado izquierdo son menores o iguales que 
+los del lado derecho) concluimos que vale la desigualdad.
+
+
+\\
+
+
+
 
 
 

@@ -256,6 +256,8 @@ int main() {
  	ofstream out;
    	out.open("resultados.out");
 	double tiempo_promedio = 0;
+	ofstream outtiempos;
+	outtiempos.open("tiempos.out");
 	
 
 	while(in.good()) {
@@ -283,44 +285,54 @@ int main() {
 		
 		
 		
-		clock_t startTime = clock();  //empezamos a medir el tiempo
+		int iteraciones = 1;
 
-		Ronda r(exploradoras, amigas);
-		int res = r.mejorOrden();
+		while (iteraciones <= 1) {
+			clock_t startTime = clock();  //empezamos a medir el tiempo
 
-		tiempo_promedio = ((double)clock() - startTime) / (CLOCKS_PER_SEC / 1000); //primero sumo los tiempos de las 100 iteraciones.
-		printf("%f \n", tiempo_promedio);  //se descomenta para saber los tiempos promedios para el gráfico.
-		
-		out << res << " ";
-		vector<char> aux = r.rondaActual();
-		for (int i = 0; i < aux.size(); i++) {
-			out << aux[i];
-		}	
-		out << endl;
+			Ronda r(exploradoras, amigas);
+			int res = r.mejorOrden();
 
-	   // tiempo_promedio = tiempo_promedio/100.0; //calculo el promedio del tiempo de las 100 iteraciones en milisegundos.
+			tiempo_promedio += ((double)clock() - startTime) / (CLOCKS_PER_SEC / 1000); //primero sumo los tiempos de las 10 iteraciones.
+			if (iteraciones == 1) {
+				out << res << " ";
+				vector<char> aux = r.rondaActual();
+				for (int i = 0; i < aux.size(); i++) {
+					out << aux[i];
+				}	
+				out << endl;
+			}
+			iteraciones++;
+	    	}
+
+	    	//tiempo_promedio = tiempo_promedio/10.0; //calculo el promedio del tiempo de las 10 iteraciones.
+        	printf("%f \n", tiempo_promedio);  //se descomenta para saber los tiempos promedios para el gráfico.
+        	outtiempos << tiempo_promedio << endl;
+       	tiempo_promedio = 0.0;
+
+	  
 	   
 
-	    tiempo_promedio = 0.0;
-
+	    
 	}
 	out.close();
+	outtiempos.close();
 
 }
 
 
 /*
 
-int iteraciones = 1;
+		int iteraciones = 1;
 		double tiempo_promedio = 0;
 
-		while (iteraciones <= 100) {
+		while (iteraciones <= 10) {
 			clock_t startTime = clock();  //empezamos a medir el tiempo
 
 			Ronda r(exploradoras, amigas);
 			int res = r.mejorOrden();
 
-			tiempo_promedio = ((double)clock() - startTime) / (CLOCKS_PER_SEC / 1000); //primero sumo los tiempos de las 100 iteraciones.
+			tiempo_promedio = ((double)clock() - startTime) / (CLOCKS_PER_SEC / 1000); //primero sumo los tiempos de las 10 iteraciones.
 			if (iteraciones == 1) {
 				out << res << " ";
 				vector<char> aux = r.rondaActual();
