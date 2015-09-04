@@ -22,6 +22,9 @@ Nuestro algoritmo lo que hace es:
 A continuación mostraremos su pseudocódigo y deduciremos su complejidad: \\
 --------------------------------------------------------------------------------------------------------------\\
 vector$<$int$>$ medianas(vector$<$int$>$ a)\{ \\
+$~~~~~~~~~~~~~$\textbf{si} (a es vacio) \{ \\ \IfOde{1}\\
+$~~~~~~~~~~~~~~~~~~$devolvemos un vector vacio \Ode{1}\\
+$~~~~~~~~$\} \\
 $~~~~~~~~$creamos el vector res de tamaño igual que a, inicializado con ceros\Ode{tamaño de a} \\
 $~~~~~~~~$res[0] $\leftarrow$ a[0]\Ode{1} \\
 $~~~~~~~~$creamos el multiset vacío: masGrandes \Ode{1} \\
