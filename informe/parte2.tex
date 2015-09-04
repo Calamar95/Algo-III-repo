@@ -1,7 +1,7 @@
 \subsection{Idea general del problema}
 Se nos propone realizar un algoritmo en el que dados n número enteros en cualquier orden se debe devolver otros n números, donde el i-ésimo de ellos represente la parte entera de la mediana de los primeros i números de la entrada.
 La mediana de un conjunto ordenado de n números se define como x$_{(n+1)/2}$ si n es impar, o como (x$_{n/2}$ + x$_{n/2+1)}$)/2  si n es par.
-\subsection{Explicación y pseudocódigo}
+\subsection{Explicación, correctitud y pseudocódigo}
 
 Lo que hicimos fue dividir un arreglo (L) de tamaño n en dos conjuntos (multiconjuntos, ie: pueden tener repetidos), uno con los elementos menores a cierto número (A) y otro con los mayores (B). Los elementos iguales a ese número pueden ir en cualquiera de los dos. Entonces sabemos que, si ordenaramos el arreglo, L[ \textbar A\textbar] = max(A) y L[\textbar A\textbar+1] = min(B). Tres casos importantes: 
 
@@ -31,8 +31,8 @@ $~~~~~~~~$creamos el multiset vacío: masGrandes \Ode{1} \\
 $~~~~~~~~$creamos el multiset vacío: masChicos \Ode{1} \\
 $~~~~~~~~$int mínimo\Ode{1} \\
 $~~~~~~~~$int máximo\Ode{1} \\
-$~~~~~~~~$insertamos a masGrandes el primer elemento del vector \Ode{log(tamaño de masGrandes)} \\
-$~~~~~~~~$ \textbf{para cada} (int i = 1; i $<$ al tamaño de a; i++)\{ \\ \WhileOde{tamaño de a} \\
+$~~~~~~~~$insertamos a masGrandes el primer elemento del vector \Ode{log(tamaño de masGrandes)} = \Ode{1} \\
+$~~~~~~~~$ \textbf{para cada} (int i = 1; i $<$ al tamaño de a; i++)\{ \\ \WhileOdeb{tamaño de a} \\
 $~~~~~~~~~~~~~$\textbf{si} (el elemento i de a $\geq$ el elemento i-1 de res)\{ \\ \IfOde{1} \\
 $~~~~~~~~~~~~~~~~~~$insertamos a masGrandes el elemento i de a \Ode{log(tamaño de masGrandes)} \\
 $~~~~~~~~~~~~~$ \} \textbf{si no} \{ \\
@@ -84,6 +84,12 @@ Aclaración: en este ciclo, en realidad, las complejidades no son O(log(n)) sino
 Entonces la complejidad total del algoritmo es O(n + (n-1)log(n)) = O(n log(n)).
 
 \subsection{Casos de test y sus gráficos}
+Vamos a analizar los tiempos de nuestro algoritmo para entradas de distinto tamaño, divididos en tres casos (todos O(n log n)):
+\begin{itemize}
+\item Peor caso: Corresponde al caso donde en la mitad de las iteraciones del ciclo, la diferecia entre la cantidad de elementos entre los conjuntos masGrandes y masChicos es igual a dos. Entonces hay que realizar en cada una de estas un borrado y una insercion. No existe peor caso que este, ya que al realizar una insercion y borrado, los conjuntos quedan con la misma cantidad de elementos y se necesitan dos iteraciones mas ciclo para tener que volver a reacomodar los elementos. Entradas crecientes y decrecientes son ejemplos de peor caso, que es lo que utilizaremos
+\item Mejor caso: Resulta cuando en ninguna iteracion la diferecia entre la cantidad de elementos entre los dos conjuntos es igual a dos, y no hay que hacer borrado e insercion. Para que pase esto, nuestra entrada consistira en una cadena de numeros, donde la subcadena de numeros en posicion par es creciente, y la subacadena de numeros en posicion impar es decreciente 
+\item Caso random: Utilizando la funcion random de python, generamos entradas al azar de diferentes entradas
+\end{itemize}
 
 \begin{figure}[H]
 \begin{center}
@@ -130,5 +136,3 @@ Entonces la complejidad total del algoritmo es O(n + (n-1)log(n)) = O(n log(n)).
 
 \end{center}
 \end{figure}
-
-\subsection{Deducción de correctitud del algoritmo}
