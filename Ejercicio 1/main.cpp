@@ -23,14 +23,16 @@ int conectar(vector<int> v , int longCable) {
 	while (longCable > 0 && v[actual] != v.back()) {
 		aux = longCable;
 		longCable = longCable -(v[actual+1] - v[actual]); //si comparamos con otro elemento, a longCable le restamos la diferencia entre dicho elemento y su próximo.
-		
+				
 		if (longCable >= 0) {
 			resTemp++; //actualizamos resTemp solo si longCable sigue siendo positivo.
 			actual++;
 		}
-		
+	
 	}
+
 	int conectadas = resTemp;
+
 	if (resTemp == 1) {
 		resTemp = 0; //si resTemp sigue en 1 como lo definimos, es porque no se conectó ninguna ciudad, entonces lo seteamos en 0.
 	}
@@ -38,6 +40,7 @@ int conectar(vector<int> v , int longCable) {
 	if (longCable < 0) {
 		longCable = aux; //si nos pasamos y longCable queda negativo, volvemos al valor anterior.
 	}
+
 
 	while (v[actual] != v.back()) { //mientras que el elemento actual no sea el último..
 		
@@ -48,25 +51,34 @@ int conectar(vector<int> v , int longCable) {
 
 		} else {
 			
+			if(conectadas>0){
 			conectadas = conectadas - 1; //si conectamos alguna ciudad, 'conectadas' será la cant de ciudades conectadas - 1.
+			}
 			longCable = longCable + (v[start+1]-v[start]);
-			start++;	
+			start++;
+			
 		}
 
 		while (longCable >= 0 && v[actual]!= v.back()) {
 			aux = longCable;			
-			longCable = longCable - (v[actual+1]- v[actual]);			
-
+			longCable = longCable - (v[actual+1]- v[actual]);	
+										
 			if (longCable >= 0) {
 				conectadas++;
 				actual++;
 			}
+
+			if (conectadas == 1){
+			conectadas = 2;				//pues si conecto por primera vez en realidad tengo 2 ciudades conectadas	
+			}		
 		}
+		
 
 		if (longCable < 0) {
 		longCable = aux; //si nos pasamos y longCable queda negativo, volvemos al valor anterior.
 		}
 
+		
 		if (conectadas > resTemp) {
 			resTemp = conectadas;
 		}
@@ -137,6 +149,7 @@ int main() {
 
 	    tiempo_promedio = 0.0;
 	    iteraciones = 0;
+    
     }
 
     out.close();
