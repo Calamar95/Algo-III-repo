@@ -78,8 +78,9 @@ formas (por ejemplo a bc;b ac;c ab también se puede escribir como a b;b c;c ab)
 encarga de verficar que ninguna amistad esté ausente en la lista de una exploradora, y que estén presentes la totalidad de las 
 exploradoras, cada una con su grupo de amigas. Esta función la utilizamos en el constructor, de manera que se almacene en la parte 
 privada toda la información completa. \\
-La complejidad de $completarAmigas$ es O($e^3$) en el peor caso; y el algoritmo consiste en los siguientes pasos (recibe los mismos 
-parámetros de entrada que el constructor): \\
+A continuación analizamos paso a paso la complejidad temporal de las funciones que implementamos. Para ello, tener en cuenta que 
+$e$ representa la cantidad de exploradoras de cada grupo, y $a$, la cantidad de amistades. \\
+La complejidad de $completarAmigas$ es O($e^3$) en el peor caso; y el algoritmo consiste en los siguientes pasos (recibe los mismos parámetros de entrada que el constructor): \\
 \begin{itemize}
 \item Recorrer el vector$<$char$>$ que contiene i exploradoras. \\
 Costo: O($e$) pues como maximo  e = i. 

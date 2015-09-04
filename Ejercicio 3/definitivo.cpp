@@ -72,8 +72,8 @@ Ronda::Ronda(vector<char> exploradoras, vector< vector<char> > amigas) {	//O(e)
 //**************************************************************************
 
 // Dada una exploradora perteneciente a la ronda, devuelve un vector que contiene a sus amigas.
-vector<char> Ronda::amigasDe(char e) {	//O(log (e))
-	return friends[e];						//O(log (e))
+vector<char> Ronda::amigasDe(char e) {	//O(e)
+	return friends[e];						//O(e)
 }
 
 //**************************************************************************
@@ -93,14 +93,14 @@ bool Ronda::cambiarOrden() {														//O(e)
 //**************************************************************************
 
 // Calcula la suma de las distancias entre las exploradoras que son amigas (primer componente) , y la mayor distancia entre dos amigas en la ronda(segunda componente).
-tuple<int, int> Ronda::sumaDistancias() {									//
+tuple<int, int> Ronda::sumaDistancias() {									//O(e.a)
 	int i = 0;																//O(1)
 	int suma = 0;															//O(1)
 	int maxLograda = 0;													//O(1)
-	while ( i < explorers.size() ) {											//O(1)
+	while ( i < explorers.size() ) {											//O(e)
 		vector<char> amigas = friends[explorers[i]];						//O(e)
 		int j = 0;															//O(1)
-		while ( j < amigas.size() ) {                    								//O(1)
+		while ( j < amigas.size() ) {                    								//O(e)
 			int pos;															//O(1)
 			int distancia;													//O(1)
 			perteneceConPos(explorers, amigas[j], pos);					//O(e)
@@ -147,8 +147,8 @@ int Ronda::mejorOrden() {
 //**************************************************************************
 
 // Ordena la ronda alfabeticamente.
-void Ronda::ordenAlfabetico() {
-	sort( explorers.begin(), explorers.begin()+explorers.size() );
+void Ronda::ordenAlfabetico() {									//O(e log(e))
+	sort( explorers.begin(), explorers.begin()+explorers.size() ); //O(e log(e))
 }
 
 //**************************************************************************
@@ -255,7 +255,6 @@ int main() {
 	ifstream in("Tp1Ej3.in");
  	ofstream out;
    	out.open("resultados.out");
-   	int iteraciones = 0;
 	double tiempo_promedio = 0;
 	
 
@@ -282,7 +281,37 @@ int main() {
 		}
 		
 		
-		int iteraciones = 1;
+		
+		
+		clock_t startTime = clock();  //empezamos a medir el tiempo
+
+		Ronda r(exploradoras, amigas);
+		int res = r.mejorOrden();
+
+		tiempo_promedio = ((double)clock() - startTime) / (CLOCKS_PER_SEC / 1000); //primero sumo los tiempos de las 100 iteraciones.
+		printf("%f \n", tiempo_promedio);  //se descomenta para saber los tiempos promedios para el gráfico.
+		
+		out << res << " ";
+		vector<char> aux = r.rondaActual();
+		for (int i = 0; i < aux.size(); i++) {
+			out << aux[i];
+		}	
+		out << endl;
+
+	   // tiempo_promedio = tiempo_promedio/100.0; //calculo el promedio del tiempo de las 100 iteraciones en milisegundos.
+	   
+
+	    tiempo_promedio = 0.0;
+
+	}
+	out.close();
+
+}
+
+
+/*
+
+int iteraciones = 1;
 		double tiempo_promedio = 0;
 
 		while (iteraciones <= 100) {
@@ -303,48 +332,5 @@ int main() {
 
 			iteraciones++;
 	    }
-
-
-
-	    tiempo_promedio = tiempo_promedio/100.0; //calculo el promedio del tiempo de las 100 iteraciones en milisegundos.
-	    printf("%f \n", tiempo_promedio);  //se descomenta para saber los tiempos promedios para el gráfico.
-
-
-
-
-	    tiempo_promedio = 0.0;
-	    iteraciones = 0;
-
-	}
-	out.close();
-
-}
-
-
-
-/*
-int iteraciones = 0;
-double tiempo_promedio = 0;
-
-while (iteraciones <= 100) {
-			clock_t startTime = clock();  //empezamos a medir el tiempo
-
-			int j = 1; //f es la cantidad máxima de ciudades conectadas de un ramal.
-
-			tiempo_promedio += ((double)clock() - startTime) / (CLOCKS_PER_SEC / 1000); //primero sumo los tiempos de las 100 iteraciones.
-			 printf("%f \n", tiempo_promedio);
-			iteraciones++;
-	    }
-
-
-
-	    tiempo_promedio = tiempo_promedio/100.0; //calculo el promedio del tiempo de las 100 iteraciones en milisegundos.
-	    printf("%f \n", tiempo_promedio);  //se descomenta para saber los tiempos promedios para el gráfico.
-
-
-
-
-	    tiempo_promedio = 0.0;
-	    iteraciones = 0;
 
 */
