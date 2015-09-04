@@ -165,14 +165,26 @@ El próximo test generado consiste en tener una longitud de cable muy chica, la 
 
 En la figura \ref{ej1-tiempo-vs-cant-ciudades-random-long-cable-1} vemos como nuestro algoritmo sigue respentando el límite de complejidad propuesto por la cátedra, a pesar de que éste sea un caso ``border". \\
 
-Otro test que decidimos hacer fue el caso contrario a este, que sería tener un cable demasiado largo, que permita conectar todas las ciudades de los ramales. Por lo tanto, escribimos un script de manera tal que la cantidad de kilómetros de cable siempre supere la distancia entre la primera ciudad y la ciudad del último kilómetro del ramal. Al medir los tiempos promedios para esto vemos que nuestro algoritmo sigue tardando menos que O(n), y lo podemos ver en la figura que sigue, \ref{ej1-tiempo-vs-cant-ciudades-random-long-cable-larga}. \\
+Otro test que decidimos hacer fue el caso contrario a este, que sería tener un cable demasiado largo, que permita conectar todas las ciudades de los ramales. Por lo tanto, escribimos un script de manera tal que la cantidad de kilómetros de cable siempre supere la distancia entre la primera ciudad y la ciudad del último kilómetro del ramal. Al medir los tiempos promedios para esto vemos que nuestro algoritmo sigue tardando menos que O(n), y lo podemos ver en la figura que sigue, \ref{ej1-tiempo-vs-cant-ciudades-random-long-cable-largo}. \\
 
 \begin{figure}[H]
 \begin{center}
 
 \minipage{0.8\textwidth}
   \includegraphics[width=\linewidth]{../graficos/ej1/CableLargo.png}
-  \caption{{\small Comparación con O(n). Dado un archivo de entrada con un cable muy largo y kilometrajes de estaciones random.}} \label{ej1-tiempo-vs-cant-ciudades-random-long-cable-larga}
+  \caption{{\small Comparación con O(n). Dado un archivo de entrada con un cable muy largo y kilometrajes de estaciones random.}} \label{ej1-tiempo-vs-cant-ciudades-random-long-cable-largo}
+\endminipage
+
+\end{center}
+\end{figure}
+
+
+\begin{figure}[H]
+\begin{center}
+
+\minipage{0.8\textwidth}
+  \includegraphics[width=\linewidth]{../graficos/ej1/PrimerasCiudades.png}
+  \caption{{\small Comparación con O(n). Dado un archivo de entrada donde entre las primeras ciudades hay una distancia corta.}} \label{ej1-tiempo-vs-cant-ciudadades-primeras-ciudades}
 \endminipage
 
 \end{center}
