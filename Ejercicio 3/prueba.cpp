@@ -69,17 +69,17 @@ bool pertenece (vector<char> v , char e) {	//O(n)
 	return !noEncontrado;							//O(1)
 }
 
-//GENERADOR DE k ENTRADAS DE HASTA  i EXPLORADORAS CADA UNA
+//GENERADOR DE k ENTRADAS DE HASTA  i EXPLORADORAS CADA UNA // ARCHIVO DE SALIDA "testsAleatorios.in"
 
 int main(){
 	
 	ofstream out;
    	out.open("testsAleatorios.in");
 
-	for (int k = 0; k < 14; k++){
+	for (int k = 0; k < 14; k++){ //ACA SE CAMBIA EL K
 		vector<char> v;
 		int i = 0;
-		while (i < 10) {
+		while (i < 10) { //ACA SE CAMBIA EL i
 			int n = rand() % 26 + 97;
 			if ( pertenece(v, char(n)) ) {
 				i++;

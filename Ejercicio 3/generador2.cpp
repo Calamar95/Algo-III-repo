@@ -16,17 +16,17 @@ bool pertenece (vector<char> v , char e) {	//O(n)
 }
 
 
-//GENERADOR DE ENTRADAS DE i EXPLORADORAS
+//GENERADOR DE ENTRADAS DE i EXPLORADORAS (K ENTRADAS) // ARCHIVO DE SALIDA "testsDeiExploradoras.in"
 
 int main(){
 	
 	ofstream out;
    	out.open("testsDeiExploradoras.in");
 
-	for (int k = 0; k < 5; k++){
+	for (int k = 0; k < 5; k++){ //ACA SE MODIFICA EL K
 		vector<char> v;
 		int i = 0;
-		while (i < 3) {
+		while (i < 3) { //ACA SE MODIFICA EL I
 			int n = rand() % 26 + 97;
 			if ( !pertenece(v, char(n)) ) {
 				v.push_back(char(n));
