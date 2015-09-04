@@ -26,7 +26,7 @@ int main(){
 	for (int k = 0; k < 5; k++){
 		vector<char> v;
 		int i = 0;
-		while (i < 12) {
+		while (i < 3) {
 			int n = rand() % 26 + 97;
 			if ( !pertenece(v, char(n)) ) {
 				v.push_back(char(n));
