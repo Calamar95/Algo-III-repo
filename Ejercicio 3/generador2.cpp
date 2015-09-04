@@ -23,10 +23,10 @@ int main(){
 	ofstream out;
    	out.open("testsDeiExploradoras.in");
 
-	for (int k = 0; k < 14; k++){
+	for (int k = 0; k < 5; k++){
 		vector<char> v;
 		int i = 0;
-		while (i < 5) {
+		while (i < 12) {
 			int n = rand() % 26 + 97;
 			if ( !pertenece(v, char(n)) ) {
 				v.push_back(char(n));
