@@ -1,6 +1,10 @@
 \subsection{Idea general del problema}
 Se nos propone realizar un algoritmo en el que dados n número enteros en cualquier orden se debe devolver otros n números, donde el i-ésimo de ellos represente la parte entera de la mediana de los primeros i números de la entrada.
 La mediana de un conjunto ordenado de n números se define como x$_{(n+1)/2}$ si n es impar, o como (x$_{n/2}$ + x$_{n/2+1)}$)/2  si n es par.
+Un ejemplo de entrada puede ser \\
+2 7 2 8 4 9 1 6 5
+y su salida deberia ser \\
+2 4 2 4 4 5 4 5 5
 \subsection{Explicación, correctitud y pseudocódigo}
 
 Lo que hicimos fue dividir un arreglo (L) de tamaño n en dos conjuntos (multiconjuntos, ie: pueden tener repetidos), uno con los elementos menores a cierto número (A) y otro con los mayores (B). Los elementos iguales a ese número pueden ir en cualquiera de los dos. Entonces sabemos que, si ordenaramos el arreglo, L[ \textbar A\textbar] = max(A) y L[\textbar A\textbar+1] = min(B). Tres casos importantes: 
